@@ -1,0 +1,195 @@
+Status,Device name,Accelerator,Device tier,Year released,RAM (GB),API level,Processor,Initialization (ms),First inference (ms),Steady inference (ms),Peak memory (MB),% Ops on GPU
+succeeded,Asus ZenFone Max Pro M1,cpu,Low tier,2018,4,28,Qualcomm Snapdragon 636,5.6539998054504395,99.24600219726562,45.66461944580078,26.328125,0
+Failed to get result,Asus ZenFone Max Pro M1,gpu_cpu,Low tier,2018,4,28,Qualcomm Snapdragon 636,0,0,0,0,0
+succeeded,Fujitsu F-01L,cpu,Low tier,2019,3,27,Qualcomm Snapdragon 450,11.531000137329102,114.64299774169922,105.21357727050781,25.94921875,0
+Failed to get result,Fujitsu F-01L,gpu_cpu,Low tier,2019,3,27,Qualcomm Snapdragon 450,0,0,0,0,0
+Failed to get result,Google Pixel,cpu,Low tier,2016,4,25,Qualcomm Snapdragon 821,0,0,0,0,0
+Failed to get result,Google Pixel,gpu_cpu,Low tier,2016,4,25,Qualcomm Snapdragon 821,0,0,0,0,0
+succeeded,Google Pixel 2,cpu,Low tier,2017,4,28,Qualcomm Snapdragon 835,7.627999782562256,101.1259994506836,34.92485809326172,26.265625,0
+Failed to get result,Google Pixel 2,gpu_cpu,Low tier,2017,4,28,Qualcomm Snapdragon 835,0,0,0,0,0
+succeeded,Google Pixel 3,cpu,Low tier,2018,4,28,Qualcomm Snapdragon 845,4.419000148773193,42.130001068115234,35.94688034057617,26.234375,0
+Failed to get result,Google Pixel 3,gpu_cpu,Low tier,2018,4,28,Qualcomm Snapdragon 845,0,0,0,0,0
+succeeded,Google Pixel 4,cpu,Mid tier,2019,6,30,Qualcomm Snapdragon 855,3.502000093460083,67.26799774169922,15.769797325134277,35.34765625,0
+Failed to get result,Google Pixel 4,gpu_cpu,Mid tier,2019,6,30,Qualcomm Snapdragon 855,0,0,0,0,0
+succeeded,Google Pixel 5,cpu,Mid tier,2020,8,30,Qualcomm Snapdragon 765G,4.415999889373779,26.17300033569336,22.393400192260742,35.75,0
+Failed to get result,Google Pixel 5,gpu_cpu,Mid tier,2020,8,30,Qualcomm Snapdragon 765G,0,0,0,0,0
+succeeded,Google Pixel 6,cpu,Mid tier,2021,8,31,Google Tensor,8.220000267028809,30.781999588012695,122.28887939453125,35.9140625,0
+Failed to get result,Google Pixel 6,gpu_cpu,Mid tier,2021,8,31,Google Tensor,0,0,0,0,0
+succeeded,Google Pixel 6 Pro,cpu,Mid tier,2021,12,32,Google Tensor,5.1579999923706055,16.048999786376953,11.128355979919434,35.8984375,0
+Failed to get result,Google Pixel 6 Pro,gpu_cpu,Mid tier,2021,12,32,Google Tensor,0,0,0,0,0
+succeeded,Google Pixel 6a,cpu,Mid tier,2021,6,32,Google Tensor,7.110000133514404,29.503999710083008,10.868293762207031,35.42578125,0
+Failed to get result,Google Pixel 6a,gpu_cpu,Mid tier,2021,6,32,Google Tensor,0,0,0,0,0
+succeeded,Google Pixel 7,cpu,High tier,2022,8,33,Google Tensor G2,8.234000205993652,18.957000732421875,10.82359790802002,35.61328125,0
+Failed to get result,Google Pixel 7,gpu_cpu,High tier,2022,8,33,Google Tensor G2,0,0,0,0,0
+succeeded,Google Pixel 7 Pro,cpu,High tier,2022,12,33,Google Tensor G2,5.186999797821045,21.621999740600586,11.851082801818848,35.8828125,0
+Failed to get result,Google Pixel 7 Pro,gpu_cpu,High tier,2022,12,33,Google Tensor G2,0,0,0,0,0
+succeeded,Google Pixel 7a,cpu,High tier,2023,8,33,Google Tensor G2,8.166999816894531,18.614999771118164,11.280831336975098,35.91015625,0
+Failed to get result,Google Pixel 7a,gpu_cpu,High tier,2023,8,33,Google Tensor G2,0,0,0,0,0
+succeeded,Google Pixel 8,cpu,High tier,2023,8,34,Google Tensor G3,4.033999919891357,15.579000473022461,13.636581420898438,36.01953125,0
+Failed to get result,Google Pixel 8,gpu_cpu,High tier,2023,8,34,Google Tensor G3,0,0,0,0,0
+succeeded,Google Pixel 8 Pro,cpu,High tier,2023,12,34,Google Tensor G3,10.697999954223633,27.52199935913086,14.737661361694336,36.09375,0
+Failed to get result,Google Pixel 8 Pro,gpu_cpu,High tier,2023,12,34,Google Tensor G3,0,0,0,0,0
+succeeded,Google Pixel 8a,cpu,High tier,2024,8,34,Google Tensor G3,9.503999710083008,24.513999938964844,12.908294677734375,36.68359375,0
+Failed to get result,Google Pixel 8a,gpu_cpu,High tier,2024,8,34,Google Tensor G3,0,0,0,0,0
+succeeded,Google Pixel 9,cpu,High tier,2024,8,35,Google Tensor G4,10.130999565124512,19.790000915527344,11.629895210266113,36.42578125,0
+Failed to get result,Google Pixel 9,gpu_cpu,High tier,2024,8,35,Google Tensor G4,0,0,0,0,0
+succeeded,Google Pixel 9 Pro,cpu,High tier,2024,16,34,Google Tensor G4,9.29800033569336,13.76200008392334,9.699427604675293,36.1796875,0
+Failed to get result,Google Pixel 9 Pro,gpu_cpu,High tier,2024,16,34,Google Tensor G4,0,0,0,0,0
+succeeded,Google Pixel 9 Pro Fold,cpu,High tier,2024,16,35,Google Tensor G4,5.650000095367432,12.57699966430664,13.104973793029785,36.26171875,0
+Failed to get result,Google Pixel 9 Pro Fold,gpu_cpu,High tier,2024,16,35,Google Tensor G4,0,0,0,0,0
+succeeded,Google Pixel 9 Pro XL,cpu,High tier,2024,16,35,Google Tensor G4,8.824999809265137,34.38800048828125,11.5218505859375,36.765625,0
+Failed to get result,Google Pixel 9 Pro XL,gpu_cpu,High tier,2024,16,35,Google Tensor G4,0,0,0,0,0
+succeeded,Google Pixel 9a,cpu,High tier,2025,8,35,Google Tensor G4,10.423999786376953,33.393001556396484,10.733870506286621,35.78515625,0
+Failed to get result,Google Pixel 9a,gpu_cpu,High tier,2025,8,35,Google Tensor G4,0,0,0,0,0
+succeeded,Google Pixel Fold,cpu,High tier,2023,12,34,Google Tensor G2,5.290999889373779,18.900999069213867,10.883967399597168,35.9453125,0
+Failed to get result,Google Pixel Fold,gpu_cpu,High tier,2023,12,34,Google Tensor G2,0,0,0,0,0
+succeeded,Google Pixel Tablet,cpu,High tier,2023,8,33,Google Tensor G2,6.165999889373779,17.138999938964844,10.924434661865234,35.57421875,0
+Failed to get result,Google Pixel Tablet,gpu_cpu,High tier,2023,8,33,Google Tensor G2,0,0,0,0,0
+Failed to get result,Huawei Mate 9,cpu,Low tier,2016,4,24,HiSilicon Kirin 960,0,0,0,0,0
+Failed to get result,Huawei Mate 9,gpu_cpu,Low tier,2016,4,24,HiSilicon Kirin 960,0,0,0,0,0
+succeeded,Lenovo Tab P11,cpu,Low tier,2021,4,30,Qualcomm Snapdragon 662,6.9730000495910645,198.88800048828125,136.68548583984375,25.765625,0
+Failed to get result,Lenovo Tab P11,gpu_cpu,Low tier,2021,4,30,Qualcomm Snapdragon 662,0,0,0,0,0
+succeeded,Lenovo Tab P12,cpu,High tier,2023,4,35,MediaTek Dimensity 7050,4.040999889373779,31.382999420166016,25.65597915649414,35.91015625,0
+Failed to get result,Lenovo Tab P12,gpu_cpu,High tier,2023,4,35,MediaTek Dimensity 7050,0,0,0,0,0
+succeeded,LGE VELVET,cpu,Mid tier,2020,6,31,Snapdragon 765G,3.9200000762939453,173.36500549316406,127.40318298339844,36.5,0
+Failed to get result,LGE VELVET,gpu_cpu,Mid tier,2020,6,31,Snapdragon 765G,0,0,0,0,0
+succeeded,Motorola edge 30,cpu,Mid tier,2022,6,34,Qualcomm Snapdragon 778G+ 5G,3.757999897003174,36.487998962402344,13.346893310546875,36.5,0
+Failed to get result,Motorola edge 30,gpu_cpu,Mid tier,2022,6,34,Qualcomm Snapdragon 778G+ 5G,0,0,0,0,0
+succeeded,Motorola moto g 5G (2022),cpu,Low tier,2022,4,33,MediaTek Dimensity 700,6.764999866485596,34.15399932861328,25.932619094848633,36.1875,0
+Failed to get result,Motorola moto g 5G (2022),gpu_cpu,Low tier,2022,4,33,MediaTek Dimensity 700,0,0,0,0,0
+succeeded,Motorola moto g play - 2024,cpu,Mid tier,2024,4,34,Qualcomm Snapdragon 680 4G,7.208000183105469,85.7040023803711,46.00450134277344,36.33984375,0
+Failed to get result,Motorola moto g play - 2024,gpu_cpu,Mid tier,2024,4,34,Qualcomm Snapdragon 680 4G,0,0,0,0,0
+succeeded,Motorola Moto G20,cpu,Low tier,2021,4,30,Unisoc T700,5.718999862670898,73.78299713134766,42.47700119018555,22.79296875,0
+Failed to get result,Motorola Moto G20,gpu_cpu,Low tier,2021,4,30,Unisoc T700,0,0,0,0,0
+succeeded,Motorola Moto G30,cpu,Low tier,2021,4,31,Qualcomm Snapdragon 662,7.429999828338623,47.00400161743164,42.1326789855957,36.00390625,0
+Failed to get result,Motorola Moto G30,gpu_cpu,Low tier,2021,4,31,Qualcomm Snapdragon 662,0,0,0,0,0
+succeeded,Motorola moto g54 5G,cpu,Mid tier,2023,4,34,MediaTek Dimensity 7020,5.671000003814697,27.187999725341797,27.825420379638672,35.51953125,0
+Failed to get result,Motorola moto g54 5G,gpu_cpu,Mid tier,2023,4,34,MediaTek Dimensity 7020,0,0,0,0,0
+succeeded,Motorola razr plus 2024,cpu,High tier,2024,8,34,Qualcomm Snapdragon 8s Gen 3,9.482999801635742,30.339000701904297,25.311460494995117,36.578125,0
+Failed to get result,Motorola razr plus 2024,gpu_cpu,High tier,2024,8,34,Qualcomm Snapdragon 8s Gen 3,0,0,0,0,0
+succeeded,OnePlus 10T 5G,cpu,Mid tier,2022,12,34,Qualcomm Snapdragon 8+ Gen 1,4.090000152587891,103.23899841308594,98.33445739746094,37.046875,0
+Failed to get result,OnePlus 10T 5G,gpu_cpu,Mid tier,2022,12,34,Qualcomm Snapdragon 8+ Gen 1,0,0,0,0,0
+succeeded,OnePlus 11 5G,cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2,3.8940000534057617,11.383000373840332,10.012590408325195,35.13671875,0
+Failed to get result,OnePlus 11 5G,gpu_cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2,0,0,0,0,0
+succeeded,OnePlus Nord CE 2 Lite 5G,cpu,Mid tier,2022,8,34,Qualcomm Snapdragon 695,4.118000030517578,27.023000717163086,20.375139236450195,36.0625,0
+Failed to get result,OnePlus Nord CE 2 Lite 5G,gpu_cpu,Mid tier,2022,8,34,Qualcomm Snapdragon 695,0,0,0,0,0
+succeeded,OnePlus Nord CE 2 Lite 5G,cpu,Mid tier,2022,8,34,Qualcomm Snapdragon 695,3.73799991607666,28.378999710083008,21.388200759887695,36.07421875,0
+Failed to get result,OnePlus Nord CE 2 Lite 5G,gpu_cpu,Mid tier,2022,8,34,Qualcomm Snapdragon 695,0,0,0,0,0
+succeeded,OnePlus Nord CE 3 Lite 5G,cpu,High tier,2023,8,34,Qualcomm Snapdragon 695,3.184999942779541,24.76099967956543,21.241300582885742,36.4375,0
+Failed to get result,OnePlus Nord CE 3 Lite 5G,gpu_cpu,High tier,2023,8,34,Qualcomm Snapdragon 695,0,0,0,0,0
+succeeded,OnePlus Nord2 5G,cpu,Mid tier,2021,12,33,MediaTek Dimensity 1200 AI,4.9029998779296875,23.895999908447266,20.658620834350586,34.15625,0
+Failed to get result,OnePlus Nord2 5G,gpu_cpu,Mid tier,2021,12,33,MediaTek Dimensity 1200 AI,0,0,0,0,0
+succeeded,OnePlus OnePlus6T,cpu,Mid tier,2018,8,29,Qualcomm Snapdragon 845,9.368000030517578,50.459999084472656,27.809680938720703,25.6875,0
+Failed to get result,OnePlus OnePlus6T,gpu_cpu,Mid tier,2018,8,29,Qualcomm Snapdragon 845,0,0,0,0,0
+succeeded,Oppo A53,cpu,Low tier,2020,4,31,Qualcomm Snapdragon 460,7.855000019073486,160.88699340820312,83.66417694091797,32.4375,0
+Failed to get result,Oppo A53,gpu_cpu,Low tier,2020,4,31,Qualcomm Snapdragon 460,0,0,0,0,0
+succeeded,Oppo A79 5G,cpu,Mid tier,2023,4,34,MediaTek Dimensity 6020,5.284999847412109,33.26599884033203,24.303220748901367,34.54296875,0
+Failed to get result,Oppo A79 5G,gpu_cpu,Mid tier,2023,4,34,MediaTek Dimensity 6020,0,0,0,0,0
+succeeded,Samsung Galaxy A03s,cpu,Low tier,2021,3,33,MediaTek Helio P35,17.400999069213867,139.81900024414062,132.84805297851562,28.01171875,0
+Failed to get result,Samsung Galaxy A03s,gpu_cpu,Low tier,2021,3,33,MediaTek Helio P35,0,0,0,0,0
+succeeded,Samsung Galaxy A12,cpu,Low tier,2020,3,31,MediaTek Helio P35,19.31599998474121,142.93099975585938,126.9218978881836,27.48046875,0
+Failed to get result,Samsung Galaxy A12,gpu_cpu,Low tier,2020,3,31,MediaTek Helio P35,0,0,0,0,0
+succeeded,Samsung Galaxy A14 5G,cpu,Mid tier,2023,4,34,Dimensity 700,5.747000217437744,32.874000549316406,29.3427791595459,27.8671875,0
+Failed to get result,Samsung Galaxy A14 5G,gpu_cpu,Mid tier,2023,4,34,Dimensity 700,0,0,0,0,0
+succeeded,Samsung Galaxy A15,cpu,Mid tier,2023,4,34,Helio G99,7.830999851226807,50.25,35.952598571777344,34.02734375,0
+Failed to get result,Samsung Galaxy A15,gpu_cpu,Mid tier,2023,4,34,Helio G99,0,0,0,0,0
+succeeded,Samsung Galaxy A15 5G,cpu,Mid tier,2023,4,34,Dimensity 6100+,5.564000129699707,123.46299743652344,36.71664047241211,28.04296875,0
+Failed to get result,Samsung Galaxy A15 5G,gpu_cpu,Mid tier,2023,4,34,Dimensity 6100+,0,0,0,0,0
+succeeded,Samsung Galaxy A16 5G,cpu,Mid tier,2024,4,34,Exynos 1330,3.743000030517578,41.80799865722656,21.60662078857422,27.80078125,0
+Failed to get result,Samsung Galaxy A16 5G,gpu_cpu,Mid tier,2024,4,34,Exynos 1330,0,0,0,0,0
+succeeded,Samsung Galaxy A25 5G,cpu,Mid tier,2023,6,34,Exynos 1280,9.119999885559082,151.1719970703125,89.96617889404297,27.83984375,0
+Failed to get result,Samsung Galaxy A25 5G,gpu_cpu,Mid tier,2023,6,34,Exynos 1280,0,0,0,0,0
+succeeded,Samsung Galaxy A35 5G,cpu,Mid tier,2024,6,34,Exynos 1380,6.205999851226807,33.39099884033203,13.708986282348633,34.13671875,0
+Failed to get result,Samsung Galaxy A35 5G,gpu_cpu,Mid tier,2024,6,34,Exynos 1380,0,0,0,0,0
+succeeded,Samsung Galaxy A51,cpu,Low tier,2019,4,31,Exynos 9611,8.96399974822998,45.6510009765625,42.262779235839844,27.578125,0
+Failed to get result,Samsung Galaxy A51,gpu_cpu,Low tier,2019,4,31,Exynos 9611,0,0,0,0,0
+succeeded,Samsung Galaxy A52s 5G,cpu,Mid tier,2021,6,34,Qualcomm Snapdragon 778G 5G,4.729000091552734,27.900999069213867,13.939167022705078,27.96875,0
+Failed to get result,Samsung Galaxy A52s 5G,gpu_cpu,Mid tier,2021,6,34,Qualcomm Snapdragon 778G 5G,0,0,0,0,0
+succeeded,Samsung Galaxy A54 5G,cpu,Mid tier,2023,6,34,Exynos 1380,6.192999839782715,23.35099983215332,13.481757164001465,34.44140625,0
+Failed to get result,Samsung Galaxy A54 5G,gpu_cpu,Mid tier,2023,6,34,Exynos 1380,0,0,0,0,0
+succeeded,Samsung Galaxy Note9 (Global),cpu,Mid tier,2018,6,29,Exynos 9810,7.255000114440918,27.231000900268555,24.663759231567383,36.015625,0
+Failed to get result,Samsung Galaxy Note9 (Global),gpu_cpu,Mid tier,2018,6,29,Exynos 9810,0,0,0,0,0
+succeeded,Samsung Galaxy Note9 (USA/China/LATAM),cpu,Mid tier,2018,6,29,Snapdragon 845,8.225000381469727,71.51799774169922,43.12223815917969,32.1484375,0
+Failed to get result,Samsung Galaxy Note9 (USA/China/LATAM),gpu_cpu,Mid tier,2018,6,29,Snapdragon 845,0,0,0,0,0
+succeeded,Samsung Galaxy S21 5G,cpu,Mid tier,2021,8,34,Snapdragon 888,3.8389999866485596,63.17599868774414,10.81831169128418,36.4609375,0
+Failed to get result,Samsung Galaxy S21 5G,gpu_cpu,Mid tier,2021,8,34,Snapdragon 888,0,0,0,0,0
+succeeded,Samsung Galaxy S21 Ultra 5G,cpu,Mid tier,2021,12,34,Snapdragon 888,3.312000036239624,27.341999053955078,10.732257843017578,36.5,0
+Failed to get result,Samsung Galaxy S21 Ultra 5G,gpu_cpu,Mid tier,2021,12,34,Snapdragon 888,0,0,0,0,0
+succeeded,Samsung Galaxy S21+ 5G,cpu,Mid tier,2021,8,34,Snapdragon 888,4.182000160217285,68.88700103759766,10.064373970031738,36.13671875,0
+Failed to get result,Samsung Galaxy S21+ 5G,gpu_cpu,Mid tier,2021,8,34,Snapdragon 888,0,0,0,0,0
+succeeded,Samsung Galaxy S22,cpu,Mid tier,2022,8,34,Snapdragon 8 Gen 1,6.377999782562256,160.2899932861328,157.7888641357422,33.91015625,0
+Failed to get result,Samsung Galaxy S22,gpu_cpu,Mid tier,2022,8,34,Snapdragon 8 Gen 1,0,0,0,0,0
+succeeded,Samsung Galaxy S22 Ultra,cpu,Mid tier,2022,8,33,Snapdragon 8 Gen 1,4.824999809265137,160.57699584960938,158.7510986328125,33.35546875,0
+Failed to get result,Samsung Galaxy S22 Ultra,gpu_cpu,Mid tier,2022,8,33,Snapdragon 8 Gen 1,0,0,0,0,0
+succeeded,Samsung Galaxy S22+ (Europe),cpu,Mid tier,2022,8,34,Exynos 2200,8.02299976348877,166.49200439453125,156.8656005859375,33.70703125,0
+Failed to get result,Samsung Galaxy S22+ (Europe),gpu_cpu,Mid tier,2022,8,34,Exynos 2200,0,0,0,0,0
+succeeded,Samsung Galaxy S23 FE (USA),cpu,High tier,2023,8,34,Snapdragon 8 Gen 1,8.527999877929688,155.072998046875,156.99337768554688,33.59375,0
+Failed to get result,Samsung Galaxy S23 FE (USA),gpu_cpu,High tier,2023,8,34,Snapdragon 8 Gen 1,0,0,0,0,0
+succeeded,Samsung Galaxy S23 Ultra (Global),cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,3.3929998874664307,43.68600082397461,8.568376541137695,34.65234375,0
+Failed to get result,Samsung Galaxy S23 Ultra (Global),gpu_cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy S23 Ultra (USA),cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,2.678999900817871,18.01799964904785,7.877330780029297,34.46484375,0
+Failed to get result,Samsung Galaxy S23 Ultra (USA),gpu_cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy S23+,cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,4.848999977111816,24.722999572753906,7.8575119972229,34.4921875,0
+Failed to get result,Samsung Galaxy S23+,gpu_cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy S24,cpu,High tier,2024,8,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,5.525000095367432,30.44300079345703,6.7071075439453125,33.6171875,0
+Failed to get result,Samsung Galaxy S24,gpu_cpu,High tier,2024,8,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy S24 Ultra,cpu,High tier,2024,12,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,4.361999988555908,96.10700225830078,8.414092063903809,33.86328125,0
+Failed to get result,Samsung Galaxy S24 Ultra,gpu_cpu,High tier,2024,12,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy S9,cpu,Low tier,2018,4,29,Exynos 9810,13.199999809265137,28.635000228881836,25.97010040283203,35.6796875,0
+Failed to get result,Samsung Galaxy S9,gpu_cpu,Low tier,2018,4,29,Exynos 9810,0,0,0,0,0
+succeeded,Samsung Galaxy Tab A7 Lite,cpu,Low tier,2021,3,34,MediaTek Helio P22T (MT8768T),16.18199920654297,160.88099670410156,125.78494262695312,27.80078125,0
+Failed to get result,Samsung Galaxy Tab A7 Lite,gpu_cpu,Low tier,2021,3,34,MediaTek Helio P22T (MT8768T),0,0,0,0,0
+succeeded,Samsung Galaxy Tab A8,cpu,Low tier,2022,3,34,Unisoc Tiger T618,6.21999979019165,104.52300262451172,41.756858825683594,27.984375,0
+Failed to get result,Samsung Galaxy Tab A8,gpu_cpu,Low tier,2022,3,34,Unisoc Tiger T618,0,0,0,0,0
+succeeded,Samsung Galaxy Tab A9+,cpu,Low tier,2023,4,34,Qualcomm Snapdragon 695 5G,4.433000087738037,38.83599853515625,20.300579071044922,27.91796875,0
+Failed to get result,Samsung Galaxy Tab A9+,gpu_cpu,Low tier,2023,4,34,Qualcomm Snapdragon 695 5G,0,0,0,0,0
+succeeded,Samsung Galaxy Tab S3,cpu,High tier,2017,4,28,Qualcomm Snapdragon 820,8.729999542236328,56.54800033569336,31.545000076293945,34.11328125,0
+Failed to get result,Samsung Galaxy Tab S3,gpu_cpu,High tier,2017,4,28,Qualcomm Snapdragon 820,0,0,0,0,0
+succeeded,Samsung Galaxy Tab S7 FE 5G,cpu,High tier,2021,4,34,Snapdragon 750G 5G,6.515999794006348,33.53099822998047,22.013219833374023,28.08203125,0
+Failed to get result,Samsung Galaxy Tab S7 FE 5G,gpu_cpu,High tier,2021,4,34,Snapdragon 750G 5G,0,0,0,0,0
+succeeded,Samsung Galaxy Tab S8,cpu,High tier,2022,8,34,Qualcomm Snapdragon 8 Gen 1,6.815999984741211,176.5800018310547,168.24632263183594,33.890625,0
+Failed to get result,Samsung Galaxy Tab S8,gpu_cpu,High tier,2022,8,34,Qualcomm Snapdragon 8 Gen 1,0,0,0,0,0
+succeeded,Samsung Galaxy Tab S8 Ultra,cpu,High tier,2022,8,33,Qualcomm Snapdragon 8 Gen 1,4.76800012588501,158.73500061035156,161.08567810058594,33.23828125,0
+Failed to get result,Samsung Galaxy Tab S8 Ultra,gpu_cpu,High tier,2022,8,33,Qualcomm Snapdragon 8 Gen 1,0,0,0,0,0
+succeeded,Samsung Galaxy Tab S9,cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,3.2760000228881836,24.582000732421875,7.63650369644165,34.44140625,0
+Failed to get result,Samsung Galaxy Tab S9,gpu_cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy Tab S9 FE 5G,cpu,Low tier,2023,6,34,Exynos 1380,7.216000080108643,26.350000381469727,14.002180099487305,34.140625,0
+Failed to get result,Samsung Galaxy Tab S9 FE 5G,gpu_cpu,Low tier,2023,6,34,Exynos 1380,0,0,0,0,0
+succeeded,Samsung Galaxy XCover Pro,cpu,Low tier,2020,4,33,Exynos 9611,7.448999881744385,43.77299880981445,37.62887954711914,27.671875,0
+Failed to get result,Samsung Galaxy XCover Pro,gpu_cpu,Low tier,2020,4,33,Exynos 9611,0,0,0,0,0
+succeeded,Samsung Galaxy XCover7,cpu,Mid tier,2024,6,34,Mediatek Dimensity 6100+,5.375999927520752,39.029998779296875,35.05186080932617,33.4140625,0
+Failed to get result,Samsung Galaxy XCover7,gpu_cpu,Mid tier,2024,6,34,Mediatek Dimensity 6100+,0,0,0,0,0
+succeeded,Samsung Galaxy Z Flip3 5G,cpu,Mid tier,2021,8,31,Qualcomm Snapdragon 888,4.493000030517578,36.99300003051758,10.331133842468262,35.96484375,0
+Failed to get result,Samsung Galaxy Z Flip3 5G,gpu_cpu,Mid tier,2021,8,31,Qualcomm Snapdragon 888,0,0,0,0,0
+succeeded,Samsung Galaxy Z Flip4,cpu,Mid tier,2022,8,33,Qualcomm Snapdragon 8+ Gen 1,5.245999813079834,166.6909942626953,157.8525848388672,33.4140625,0
+Failed to get result,Samsung Galaxy Z Flip4,gpu_cpu,Mid tier,2022,8,33,Qualcomm Snapdragon 8+ Gen 1,0,0,0,0,0
+succeeded,Samsung Galaxy Z Flip5,cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,4.809999942779541,65.24700164794922,10.574136734008789,34.35546875,0
+Failed to get result,Samsung Galaxy Z Flip5,gpu_cpu,High tier,2023,8,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy Z Flip6,cpu,High tier,2024,12,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,5.243000030517578,99.71900177001953,28.80590057373047,33.37109375,0
+Failed to get result,Samsung Galaxy Z Flip6,gpu_cpu,High tier,2024,12,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy Z Fold2 5G,cpu,Mid tier,2020,12,30,Qualcomm Snapdragon 865+,5.77400016784668,69.18499755859375,19.80560874938965,36.08984375,0
+Failed to get result,Samsung Galaxy Z Fold2 5G,gpu_cpu,Mid tier,2020,12,30,Qualcomm Snapdragon 865+,0,0,0,0,0
+succeeded,Samsung Galaxy Z Fold4,cpu,Mid tier,2022,12,33,Qualcomm Snapdragon 8+ Gen 1,5.040999889373779,169.66700744628906,158.06759643554688,33.52734375,0
+Failed to get result,Samsung Galaxy Z Fold4,gpu_cpu,Mid tier,2022,12,33,Qualcomm Snapdragon 8+ Gen 1,0,0,0,0,0
+succeeded,Samsung Galaxy Z Fold5,cpu,High tier,2023,12,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,4.380000114440918,58.952999114990234,7.871535301208496,34.58984375,0
+Failed to get result,Samsung Galaxy Z Fold5,gpu_cpu,High tier,2023,12,34,Qualcomm Snapdragon 8 Gen 2 for Galaxy,0,0,0,0,0
+succeeded,Samsung Galaxy Z Fold6,cpu,High tier,2024,12,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,4.715000152587891,24.33099937438965,8.978580474853516,34.8125,0
+Failed to get result,Samsung Galaxy Z Fold6,gpu_cpu,High tier,2024,12,34,Qualcomm Snapdragon 8 Gen 3 for Galaxy,0,0,0,0,0
+succeeded,Sharp AQUOS sense2 SH-01L,cpu,Low tier,2018,3,28,Qualcomm Snapdragon 450,12.1850004196167,134.15199279785156,103.2593765258789,33.6640625,0
+Failed to get result,Sharp AQUOS sense2 SH-01L,gpu_cpu,Low tier,2018,3,28,Qualcomm Snapdragon 450,0,0,0,0,0
+succeeded,Sony Xperia 1 V,cpu,High tier,2023,12,34,Qualcomm Snapdragon 8 Gen 2,4.370999813079834,74.60800170898438,8.582504272460938,36.390625,0
+Failed to get result,Sony Xperia 1 V,gpu_cpu,High tier,2023,12,34,Qualcomm Snapdragon 8 Gen 2,0,0,0,0,0
+succeeded,Sony Xperia 10 II,cpu,Low tier,2020,4,31,Qualcomm Snapdragon 665,8.980999946594238,183.04100036621094,45.432838439941406,34.53515625,0
+Failed to get result,Sony Xperia 10 II,gpu_cpu,Low tier,2020,4,31,Qualcomm Snapdragon 665,0,0,0,0,0
+succeeded,Sony Xperia 10 V,cpu,Mid tier,2023,6,34,Qualcomm Snapdragon 695 5G,4.138000011444092,154.91000366210938,133.689453125,36.0703125,0
+Failed to get result,Sony Xperia 10 V,gpu_cpu,Mid tier,2023,6,34,Qualcomm Snapdragon 695 5G,0,0,0,0,0
+succeeded,Sony Xperia XZ1 Compact,cpu,Low tier,2017,4,26,Qualcomm Snapdragon 835,4.183000087738037,72.31300354003906,32.70975875854492,25.53515625,0
+Failed to get result,Sony Xperia XZ1 Compact,gpu_cpu,Low tier,2017,4,26,Qualcomm Snapdragon 835,0,0,0,0,0
+succeeded,Vivo 1906,cpu,Low tier,2019,3,28,Qualcomm Snapdragon 439,12.343000411987305,156.31100463867188,130.75677490234375,33.2265625,0
+Failed to get result,Vivo 1906,gpu_cpu,Low tier,2019,3,28,Qualcomm Snapdragon 439,0,0,0,0,0
+succeeded,Vivo V1818CA,cpu,Low tier,2019,3,27,MediaTek Helio P22 (MT6762R),12.673999786376953,228.55599975585938,211.39520263671875,32.9921875,0
+Failed to get result,Vivo V1818CA,gpu_cpu,Low tier,2019,3,27,MediaTek Helio P22 (MT6762R),0,0,0,0,0
+succeeded,Xiaomi Mi A2 Lite,cpu,Low tier,2018,4,29,Qualcomm Snapdragon 625,8.352999687194824,87.94599914550781,80.93302154541016,26.9921875,0
+Failed to get result,Xiaomi Mi A2 Lite,gpu_cpu,Low tier,2018,4,29,Qualcomm Snapdragon 625,0,0,0,0,0
+succeeded,Zebra Technologies TC77,cpu,Low tier,2018,4,27,Qualcomm Snapdragon 660,4.442999839782715,69.90899658203125,37.191898345947266,25.87109375,0
+Failed to get result,Zebra Technologies TC77,gpu_cpu,Low tier,2018,4,27,Qualcomm Snapdragon 660,0,0,0,0,0

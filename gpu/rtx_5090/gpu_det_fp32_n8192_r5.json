@@ -1,0 +1,561 @@
+{
+  "benchmark_info": {
+    "timestamp_utc": "2025-09-25T06:29:04.598898Z",
+    "total_runs": 5,
+    "benchmark_type": "cpu_gpu_performance",
+    "script_version": "paper-grade",
+    "units_specification": {
+      "cpu_memory_bandwidth": "GB/s (STREAM Triad, 32B accounting for write-allocate, 1e9 bytes/sec)",
+      "cpu_compute": "GFLOP/s (single-precision SGEMM, best-effort BLAS)",
+      "gpu_memory_bandwidth": "GB/s (device-to-device copy, 1e9 bytes/sec)",
+      "gpu_compute": "TFLOP/s (single-precision SGEMM, FP32-exact or TF32)",
+      "computational_intensity": "FLOP/byte (arithmetic intensity, roofline model)"
+    },
+    "statistical_notes": {
+      "confidence_intervals": "95% confidence intervals based on normal distribution",
+      "best_values": "Maximum observed performance across all runs",
+      "aggregation_method": "Sample statistics across independent benchmark runs",
+      "stream_methodology": "STREAM Triad uses 32-byte accounting (read b, read c, write-allocate read a, write a) to reflect actual bus traffic on CPUs without non-temporal stores"
+    }
+  },
+  "device_info": {
+    "timestamp_utc": "2025-09-25T06:27:59.309776Z",
+    "python": "3.11.11 (main, Dec  4 2024, 08:55:07) [GCC 11.4.0]",
+    "platform": "Linux-6.11.0-26-generic-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "uname": "Linux dde2b44a53c0 6.11.0-26-generic #26~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Apr 17 19:20:47 UTC 2 x86_64 x86_64 x86_64 GNU/Linux\n",
+    "os_release": "PRETTY_NAME=\"Ubuntu 22.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.5 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+    "lscpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        48 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               120\nOn-line CPU(s) list:                  0-119\nVendor ID:                            AuthenticAMD\nModel name:                           AMD EPYC 7543 32-Core Processor\nCPU family:                           25\nModel:                                1\nThread(s) per core:                   1\nCore(s) per socket:                   60\nSocket(s):                            2\nStepping:                             1\nBogoMIPS:                             5599.99\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm rep_good nopl cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr wbnoinvd arat npt lbrv nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload vgif umip pku ospke vaes vpclmulqdq rdpid arch_capabilities\nVirtualization:                       AMD-V\nHypervisor vendor:                    KVM\nVirtualization type:                  full\nL1d cache:                            7.5 MiB (120 instances)\nL1i cache:                            7.5 MiB (120 instances)\nL2 cache:                             60 MiB (120 instances)\nL3 cache:                             1.9 GiB (120 instances)\nNUMA node(s):                         2\nNUMA node0 CPU(s):                    0-59\nNUMA node1 CPU(s):                    60-119\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Not affected\nVulnerability Spec rstack overflow:   Vulnerable: Safe RET, no microcode\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Retpolines; IBPB conditional; IBRS_FW; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\n",
+    "smt_control": "notsupported",
+    "cpu_governors": {},
+    "meminfo": "MemTotal:       990732140 kB\nMemFree:        85338328 kB\nMemAvailable:   658855572 kB\nBuffers:           47884 kB\nCached:         632487540 kB\nSwapCached:            0 kB\nActive:         410081672 kB\nInactive:       473435368 kB\nActive(anon):   241261728 kB\nInactive(anon): 64201052 kB\nActive(file):   168819944 kB\nInactive(file): 409234316 kB\nUnevictable:       31432 kB\nMlocked:           27432 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:           2096076 kB\nWriteback:             0 kB\nAnonPages:      89434664 kB\nMapped:         78171324 kB\nShmem:          54472472 kB\nKReclaimable:    7569956 kB\nSlab:           12439932 kB\nSReclaimable:    7569956 kB\nSUnreclaim:      4869976 kB\nKernelStack:      116464 kB\nPageTables:       488656 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    495366068 kB\nCommitted_AS:   338210104 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      895204 kB\nVmallocChunk:          0 kB\nPercpu:           315360 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:  10975232 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:  25335808 kB\nFilePmdMapped:         0 kB\nUnaccepted:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:    321577396 kB\nDirectMap2M:    636811264 kB\nDirectMap1G:    50331648 kB\n",
+    "lspci_vga": "00:01.0 VGA compatible controller: Red Hat, Inc. Virtio GPU (rev 01)\n07:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n08:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n09:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n0a:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n0b:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n0c:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n0d:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n0e:00.0 VGA compatible controller: NVIDIA Corporation Device 2b85 (rev a1)\n",
+    "nvidia_gpus": "not_available: No module named 'nvidia_ml_py3'",
+    "versions_perf_env": {
+      "numpy": "2.3.3",
+      "torch": "2.8.0+cu128",
+      "nvidia_ml_py3": "not_installed"
+    },
+    "cuda_runtime_info": {
+      "cuda_version": "12.8",
+      "cudnn_version": 91002,
+      "cuda_available": true,
+      "cublas_version": 120804
+    }
+  },
+  "cpu_results": {
+    "runs": [],
+    "aggregated": {}
+  },
+  "gpu_results": {
+    "runs": [
+      {
+        "memory_bandwidth_gbs": 0.0,
+        "compute_tflops": 68.83381138465514,
+        "intensity_flop_per_byte": 0.0,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "2392, 14001, 31, 56.19",
+          "gpu_clocks_post": "802, 13801, 44, 47.69",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.01597342360764742,
+              "tflops": 68.83381138465514
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.016221513971686363,
+              "tflops": 67.78107331381823
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.016156842932105064,
+              "tflops": 68.05238080214136
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.016233774833381176,
+              "tflops": 67.72988039202669
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.016299705021083355,
+              "tflops": 67.45592183133392
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.01617497391998768,
+              "tflops": 67.97609895477578
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.016345464624464512,
+              "tflops": 67.26707701721392
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.016700146719813347,
+              "tflops": 65.83844119593992
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.016542616300284863,
+              "tflops": 66.46540110811048
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.016389714553952217,
+              "tflops": 67.0854653481969
+            }
+          ],
+          "timings_raw": [
+            0.01597342360764742,
+            0.016221513971686363,
+            0.016156842932105064,
+            0.016233774833381176,
+            0.016299705021083355,
+            0.01617497391998768,
+            0.016345464624464512,
+            0.016700146719813347,
+            0.016542616300284863,
+            0.016389714553952217
+          ],
+          "best_tflops": 68.83381138465514,
+          "mean_tflops": 67.44855513482122,
+          "std_tflops": 0.8047009718430853,
+          "ci95_single_run": 0.49875882964953383,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "best_bandwidth_gbs": 0.0
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 0.0,
+        "compute_tflops": 68.0005619743994,
+        "intensity_flop_per_byte": 0.0,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "2392, 14001, 32, 42.39",
+          "gpu_clocks_post": "2355, 13801, 42, 44.41",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.01632019504904747,
+              "tflops": 67.37123082607846
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.01658998616039753,
+              "tflops": 66.27562055480662
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.016293673776090145,
+              "tflops": 67.48089122721105
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.016249404288828373,
+              "tflops": 67.66473454857204
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.016252215020358562,
+              "tflops": 67.65303230351564
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.01616915501654148,
+              "tflops": 68.0005619743994
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.016610785387456417,
+              "tflops": 66.19263340830909
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.0166090065613389,
+              "tflops": 66.1997226453841
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.016431394964456558,
+              "tflops": 66.91529417644696
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.016585025005042553,
+              "tflops": 66.29544588818537
+            }
+          ],
+          "timings_raw": [
+            0.01632019504904747,
+            0.01658998616039753,
+            0.016293673776090145,
+            0.016249404288828373,
+            0.016252215020358562,
+            0.01616915501654148,
+            0.016610785387456417,
+            0.0166090065613389,
+            0.016431394964456558,
+            0.016585025005042553
+          ],
+          "best_tflops": 68.0005619743994,
+          "mean_tflops": 67.00491675529088,
+          "std_tflops": 0.6751930271599952,
+          "ci95_single_run": 0.4184889739135448,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "best_bandwidth_gbs": 0.0
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 0.0,
+        "compute_tflops": 67.1365015843901,
+        "intensity_flop_per_byte": 0.0,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "2392, 14001, 33, 57.64",
+          "gpu_clocks_post": "2287, 13801, 43, 50.17",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.016938417218625546,
+              "tflops": 64.91230045785937
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.016791035421192646,
+              "tflops": 65.48206231452897
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.01637725532054901,
+              "tflops": 67.1365015843901
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.016420324333012104,
+              "tflops": 66.96040866656307
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.016490735113620758,
+              "tflops": 66.67450663662912
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.016468835063278675,
+              "tflops": 66.76316955943241
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.01640181429684162,
+              "tflops": 67.0359758912601
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.016507955268025398,
+              "tflops": 66.604955606202
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.01655169576406479,
+              "tflops": 66.42894138757299
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.016491645947098732,
+              "tflops": 66.67082420414378
+            }
+          ],
+          "timings_raw": [
+            0.016938417218625546,
+            0.016791035421192646,
+            0.01637725532054901,
+            0.016420324333012104,
+            0.016490735113620758,
+            0.016468835063278675,
+            0.01640181429684162,
+            0.016507955268025398,
+            0.01655169576406479,
+            0.016491645947098732
+          ],
+          "best_tflops": 67.1365015843901,
+          "mean_tflops": 66.46696463085819,
+          "std_tflops": 0.6778945989087057,
+          "ci95_single_run": 0.4201634254312495,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "best_bandwidth_gbs": 0.0
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 0.0,
+        "compute_tflops": 68.50688121384258,
+        "intensity_flop_per_byte": 0.0,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "367, 810, 33, 57.53",
+          "gpu_clocks_post": "2205, 13801, 46, 88.01",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.016717005521059036,
+              "tflops": 65.77204430487889
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.01633297558873892,
+              "tflops": 67.31851289449543
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.016049652360379696,
+              "tflops": 68.50688121384258
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.016364104114472866,
+              "tflops": 67.1904566290043
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.016461514867842197,
+              "tflops": 66.79285816665097
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.016437235288321972,
+              "tflops": 66.89151846339762
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.016433275304734707,
+              "tflops": 66.90763754558483
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.016564594581723213,
+              "tflops": 66.37721329981491
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.016505485400557518,
+              "tflops": 66.6149223178169
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.016478714533150196,
+              "tflops": 66.72314309250972
+            }
+          ],
+          "timings_raw": [
+            0.016717005521059036,
+            0.01633297558873892,
+            0.016049652360379696,
+            0.016364104114472866,
+            0.016461514867842197,
+            0.016437235288321972,
+            0.016433275304734707,
+            0.016564594581723213,
+            0.016505485400557518,
+            0.016478714533150196
+          ],
+          "best_tflops": 68.50688121384258,
+          "mean_tflops": 66.90951879279962,
+          "std_tflops": 0.6715970914990338,
+          "ci95_single_run": 0.4162601898999649,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "best_bandwidth_gbs": 0.0
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 0.0,
+        "compute_tflops": 68.49113076592907,
+        "intensity_flop_per_byte": 0.0,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "2392, 14001, 33, 58.23",
+          "gpu_clocks_post": "2422, 13801, 33, 146.97",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.016167674213647842,
+              "tflops": 68.0067901694762
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.016528936102986336,
+              "tflops": 66.52041129116276
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.01637905463576317,
+              "tflops": 67.12912632791698
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.016053343191742897,
+              "tflops": 68.49113076592907
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.01644622441381216,
+              "tflops": 66.85495710812438
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.01640455424785614,
+              "tflops": 67.02477928772078
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.016524855978786945,
+              "tflops": 66.53683573324025
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.016587113961577415,
+              "tflops": 66.28709673804144
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.016455874778330326,
+              "tflops": 66.81575076299654
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.016579915769398212,
+              "tflops": 66.31587536803923
+            }
+          ],
+          "timings_raw": [
+            0.016167674213647842,
+            0.016528936102986336,
+            0.01637905463576317,
+            0.016053343191742897,
+            0.01644622441381216,
+            0.01640455424785614,
+            0.016524855978786945,
+            0.016587113961577415,
+            0.016455874778330326,
+            0.016579915769398212
+          ],
+          "best_tflops": 68.49113076592907,
+          "mean_tflops": 66.99827535526477,
+          "std_tflops": 0.6877590091416225,
+          "ci95_single_run": 0.42627745023686614,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "best_bandwidth_gbs": 0.0
+        }
+      }
+    ],
+    "aggregated": {
+      "memory_bandwidth_gbs": {
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "median": 0.0,
+        "stdev": 0.0,
+        "ci95": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "best": 0.0,
+        "coefficient_of_variation": 0.0,
+        "units": "GB/s"
+      },
+      "compute_tflops": {
+        "values": [
+          68.83381138465514,
+          68.0005619743994,
+          67.1365015843901,
+          68.50688121384258,
+          68.49113076592907
+        ],
+        "mean": 68.194,
+        "median": 68.491,
+        "stdev": 0.662,
+        "ci95": 0.58,
+        "min": 67.137,
+        "max": 68.834,
+        "best": 68.834,
+        "coefficient_of_variation": 0.97,
+        "units": "TFLOP/s"
+      },
+      "intensity_flop_per_byte": {
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "median": 0.0,
+        "stdev": 0.0,
+        "ci95": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "best": 0.0,
+        "coefficient_of_variation": 0.0,
+        "units": "FLOP/byte"
+      }
+    }
+  }
+}

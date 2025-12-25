@@ -1,0 +1,6 @@
+metric,mean_rho,median_rho,success_rate,n_tests
+frm,0.907,0.893,1.0,238
+frm_q,0.904,0.891,1.0,238
+ratio_flops,1.0,1.0,1.0,238
+ratio_lat,0.582,0.65,0.545,238
+ratio_mem,0.307,0.292,0.038,238

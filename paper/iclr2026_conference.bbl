@@ -1,0 +1,77 @@
+\begin{thebibliography}{9}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Cai et~al.(2019)Cai, Zhu, and Han]{cai2019proxylessnas}
+Han Cai, Ligeng Zhu, and Song Han.
+\newblock Proxylessnas: Direct neural architecture search on target task and
+  hardware.
+\newblock In \emph{International Conference on Learning Representations}, 2019.
+
+\bibitem[Cai et~al.(2020)Cai, Gan, Wang, Zhang, and Han]{cai2020once}
+Han Cai, Chuang Gan, Tianzhe Wang, Zhekai Zhang, and Song Han.
+\newblock Once-for-all: Train one network and specialize it for efficient
+  deployment.
+\newblock In \emph{International Conference on Learning Representations}, 2020.
+
+\bibitem[Graham et~al.(2021)Graham, El-Nouby, Touvron, Stock, Joulin,
+  J{\'e}gou, and Douze]{graham2021levit}
+Benjamin Graham, Alaaeldin El-Nouby, Hugo Touvron, Pierre Stock, Armand Joulin,
+  Herv{\'e} J{\'e}gou, and Matthijs Douze.
+\newblock Levit: a vision transformer in convnet's clothing for faster
+  inference.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pp.\  12259--12269, 2021.
+
+\bibitem[Iandola et~al.(2016)Iandola, Han, Moskewicz, Ashraf, Dally, and
+  Keutzer]{iandola2016squeezenet}
+Forrest~N Iandola, Song Han, Matthew~W Moskewicz, Khalid Ashraf, William~J
+  Dally, and Kurt Keutzer.
+\newblock Squeezenet: Alexnet-level accuracy with 50x fewer parameters and< 0.5
+  mb model size.
+\newblock \emph{arXiv preprint arXiv:1602.07360}, 2016.
+
+\bibitem[Mattson et~al.(2020)Mattson, Cheng, Diamos, Coleman, Micikevicius,
+  Patterson, Tang, Wei, Bailis, Bittorf, et~al.]{mattson2020mlperf}
+Peter Mattson, Christine Cheng, Gregory Diamos, Cody Coleman, Paulius
+  Micikevicius, David Patterson, Hanlin Tang, Gu-Yeon Wei, Peter Bailis, Victor
+  Bittorf, et~al.
+\newblock Mlperf training benchmark.
+\newblock \emph{Proceedings of Machine Learning and Systems}, 2:\penalty0
+  336--349, 2020.
+
+\bibitem[Sandler et~al.(2018)Sandler, Howard, Zhu, Zhmoginov, and
+  Chen]{sandler2018mobilenetv2}
+Mark Sandler, Andrew Howard, Menglong Zhu, Andrey Zhmoginov, and Liang-Chieh
+  Chen.
+\newblock Mobilenetv2: Inverted residuals and linear bottlenecks.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, pp.\  4510--4520, 2018.
+
+\bibitem[Schwartz et~al.(2020)Schwartz, Dodge, Smith, and
+  Etzioni]{schwartz2020green}
+Roy Schwartz, Jesse Dodge, Noah~A Smith, and Oren Etzioni.
+\newblock Green ai.
+\newblock \emph{Communications of the ACM}, 63\penalty0 (12):\penalty0 54--63,
+  2020.
+
+\bibitem[Tan \& Le(2019)Tan and Le]{tan2019efficientnet}
+Mingxing Tan and Quoc Le.
+\newblock Efficientnet: Rethinking model scaling for convolutional neural
+  networks.
+\newblock In \emph{International Conference on Machine Learning}, pp.\
+  6105--6114. PMLR, 2019.
+
+\bibitem[Wu et~al.(2019)Wu, Dai, Zhang, Wang, Sun, Wu, Tian, Vajda, Jia, and
+  Keutzer]{wu2019fbnet}
+Bichen Wu, Xiaoliang Dai, Peizhao Zhang, Yanghan Wang, Fei Sun, Yiming Wu,
+  Yuandong Tian, Peter Vajda, Yangqing Jia, and Kurt Keutzer.
+\newblock Fbnet: Hardware-aware efficient convnet design via differentiable
+  neural architecture search.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, pp.\  10734--10742, 2019.
+
+\end{thebibliography}

@@ -1,0 +1,679 @@
+\documentclass{article} % For LaTeX2e
+
+%Some fonts
+\usepackage{lmodern}   % Latin Modern font (clean version of Computer Modern)
+\renewcommand{\rmdefault}{lmroman}  % serif
+\renewcommand{\sfdefault}{lmss}     % sans-serif
+\renewcommand{\ttdefault}{lmtt}     % monospace
+
+\usepackage{iclr2026_conference}
+\usepackage{lmodern}             % font
+\renewcommand{\rmdefault}{lmroman}
+\renewcommand{\sfdefault}{lmss}
+\renewcommand{\ttdefault}{lmtt}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subcaption}
+
+\title{From FLOPs to Compound Efficiency Measures: \\ A Large-Scale Analysis of Cross-Platform Assessment}
+
+\author{
+\centerline{
+\begin{tabular}{ccc}
+Ahmed Wali & \hspace{2cm} & Murtaza Taj \\
+LUMS       &               & LUMS
+\end{tabular}
+}\\[0.27cm]
+}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+% \iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The deep learning community has long recognized the limitations of FLOPs as an efficiency metric, yet it remains the dominant measure in architecture papers. Why do we keep using a metric everyone knows is flawed? This paper presents findings from a large-scale empirical exploration of efficiency measurement approaches, spanning 1,527 benchmark evaluations across 106 devices and 13 model architectures. We document 774 cases where FLOPs-based rankings disagree with compound efficiency rankings by $\geq$2 positions---meaning in 10\% of deployment decisions, FLOPs would recommend a different model than compound metrics. Through our research journey, which included challenging theoretical approaches and iterative refinement, we discover that efficiency \emph{rankings} transfer across hardware platforms with surprising fidelity ($\rho=0.907$), even when raw metrics do not. This transferability enables 99.5\% benchmarking cost reduction for CNN-dominated deployments, making informed cross-platform decisions accessible to small research groups. However, transferability is architecture-dependent: CNN rankings transfer reliably (5.2\% error), while transformer predictions show greater variance (23.4\% error). Rather than proposing a new metric, we synthesize these findings into a practical framework for selecting appropriate efficiency metrics. Our analysis suggests the field needs not a single ``better'' metric, but a clearer understanding of when each approach works.
+\end{abstract}
+
+\section{Introduction}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{fig-1.jpg}
+\caption{Cross-device Pareto frontiers for 13 models across 106 devices, normalized to ResNet50 baseline (FRM=1). This unified visualization enables direct comparison across hardware platforms. Unexpectedly, ConvNeXt-Tiny shows better relative efficiency improvement on CPUs than on many GPUs, suggesting that hardware specialization effects aren't always intuitive---a finding that only emerges from cross-platform analysis.}
+\label{fig:cross_device_pareto}
+\end{figure}
+
+\subsection{The Efficiency Measurement Crisis}
+
+Deploying neural networks across diverse hardware platforms requires understanding efficiency---but measuring efficiency is surprisingly hard. Comprehensive benchmarking across target devices can cost over \$100K and weeks of engineering effort. FLOPs (floating-point operations) offers an attractive shortcut: it's deterministic, device-independent, and free to compute. The problem is that everyone in the field knows FLOPs is flawed.
+
+The ShuffleNet V2 paper~\citep{ma2018shufflenet} explicitly warns that ``FLOPs is an indirect metric.'' EfficientNet~\citep{tan2019efficientnet} acknowledges that memory access patterns dominate measured performance. Quantization research demonstrates that INT8 operations have the same FLOPs but different runtime characteristics. Yet open any recent architecture paper, and FLOPs remains the primary efficiency comparison.
+
+Why do we keep using a metric we know has limitations? The answer, we believe, is that alternatives are expensive. Latency measurements require actual hardware. Energy measurements require specialized equipment. Multi-device benchmarking requires scale that most research groups cannot afford. Figure~\ref{fig:cross_device_pareto} illustrates the cross-platform efficiency landscape that emerges from comprehensive benchmarking---revealing patterns that FLOPs alone cannot capture.
+
+\subsection{Our Research Journey}
+
+This paper reports findings from an extensive exploration of efficiency measurement, born from frustration with FLOPs limitations encountered firsthand.
+
+\textbf{The catalyst}: Our research began with inertial convolutions---a novel operation that achieved 80\% FLOPs reduction compared to standard convolutions. We expected major speedups. Instead, we measured 10$\times$ \emph{slower} inference on actual hardware. The culprit: memory access patterns and operator fusion limitations that FLOPs cannot capture. This experience motivated our systematic investigation.
+
+\textbf{First attempt---theoretical transfer}: We initially pursued a theoretical approach we called Kernel Ratio Transfer (KRT), hypothesizing that efficiency ratios between models would be device-invariant. If model A is 2$\times$ faster than model B on GPU, perhaps it's also 2$\times$ faster on edge devices? We also explored separating operations by class and modeling them separately, but this approach could not reliably transfer efficiency ratios---hardware-model interactions introduced substantial variance that ratio-based prediction could not capture.
+
+\textbf{Second attempt---compound metrics}: We explored compound metrics combining FLOPs, latency, and memory into a single score (which we called FRM). These achieved good ranking stability ($\rho=0.956$), but we recognized that a stable metric alone isn't a research contribution---it needs to enable something useful.
+
+\textbf{Final pivot---large-scale empirical analysis}: We realized our accumulated benchmark data (1,527 runs across 106 devices) could answer questions the field hasn't systematically addressed: How often do FLOPs rankings disagree with compound metrics? Do efficiency rankings transfer across platforms? What determines predictability?
+
+\subsection{Contributions}
+
+Rather than proposing a new metric, we offer:
+
+\begin{enumerate}
+    \item \textbf{Systematic documentation of FLOPs limitations}: 774 cases where FLOPs rankings disagree with compound efficiency rankings by $\geq$2 positions, quantifying a 10\% inconsistency rate.
+    
+    \item \textbf{Comparative analysis of efficiency measurement approaches}: Survey of existing metrics with empirical evaluation of their strengths and limitations.
+    
+    \item \textbf{Empirical discovery of ranking transferability}: The surprising finding that efficiency rankings transfer across platforms ($\rho=0.907$) even when raw metrics don't.
+    
+    \item \textbf{Practical framework for metric selection}: Guidance on when to use FLOPs, when compound metrics help, and when direct benchmarking is unavoidable.
+\end{enumerate}
+
+\section{The FLOPs Fallacy}
+
+\subsection{Historical Context}
+
+\textbf{The FLOPs assumption era (2015-2018)}: Early efficient architecture papers implicitly assumed FLOPs correlated with runtime. VGG~\citep{simonyan2014very} and ResNet~\citep{he2016deep} reported FLOPs as the primary efficiency measure. This worked reasonably well when comparing architectures with similar operation types (standard convolutions) on similar hardware (datacenter GPUs).
+
+\textbf{Growing skepticism (2018-2020)}: As architectures diversified, cracks appeared. ShuffleNet V2~\citep{ma2018shufflenet} explicitly identified four ``practical guidelines'' for efficient network design that FLOPs cannot capture: memory access cost, parallelism, element-wise operations, and fragmentation. MobileNetV3~\citep{howard2019searching} introduced hardware-aware NAS because FLOPs-based optimization produced suboptimal real-world performance.
+
+\textbf{Current state}: The community acknowledges FLOPs limitations, yet continues using it. A survey of CVPR 2024 efficiency-focused papers found 78\% report FLOPs as the primary or sole efficiency metric. The reason is practical: alternatives require expensive benchmarking that most research groups cannot afford.
+
+\subsection{Our Inertial Convolution Case Study}
+
+Our research was catalyzed by a stark FLOPs failure. We developed inertial convolutions---operations that reuse activations across spatial positions, achieving 80\% FLOPs reduction compared to standard convolutions. Based on FLOPs, we expected significant speedups.
+
+\textbf{Reality}: On NVIDIA RTX 4090, inertial convolutions were 10$\times$ \emph{slower} than standard convolutions despite lower FLOPs.
+
+\textbf{Root cause analysis}:
+\begin{itemize}
+    \item \textbf{Memory access patterns}: Standard convolutions exploit spatial locality; our operation required irregular memory access
+    \item \textbf{Operator fusion}: cuDNN heavily optimizes standard convolutions; our custom operation couldn't benefit
+    \item \textbf{Parallelization}: Depthwise separable patterns match GPU architecture; our operation created synchronization points
+\end{itemize}
+
+This experience taught us that FLOPs can be not just imprecise, but catastrophically wrong. A 10$\times$ prediction error isn't noise---it's a fundamental limitation of FLOPs as a complexity measure.
+
+\subsection{Systematic Empirical Evidence}
+
+Motivated by our case study, we conducted large-scale analysis to quantify FLOPs limitations systematically.
+
+\textbf{Methodology}: We collected 1,527 benchmark evaluations across 106 devices and 13 model architectures. For each device configuration, we compared FLOPs-based rankings to compound metric rankings, identifying ``disagreements'' where rank position differs by $\geq$2 positions.
+
+\begin{table}[h]
+\centering
+\caption{FLOPs vs. Compound Metric Disagreement Analysis}
+\label{tab:disagreements}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Metric} & \textbf{Value} & \textbf{Interpretation} \\
+\midrule
+Total disagreements & 774 & Cases where rankings differ by $\geq$2 \\
+Affected configurations & 95.8\% & 342 of 357 device groups \\
+Mean disagreements/group & 2.17 & Systematic, not isolated \\
+Overall inconsistency rate & 10.2\% & FLOPs recommends different model \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{What 10\% means}: In one out of every ten deployment decisions, following FLOPs rankings would lead to selecting a different model than compound metrics suggest---potentially choosing a model ranked \#2 by FLOPs that actually performs at \#7 in measured efficiency.
+
+\textbf{Disagreement distribution}: Edge devices show the most disagreements (74.8\%), followed by GPUs (21.7\%) and CPUs (3.5\%). This is significant because edge deployment is precisely where practitioners most need guidance---it's where benchmarking is hardest and FLOPs predictions are least reliable.
+
+\subsubsection{Case Study: LeViT (FLOPs Underestimates Cost)}
+
+LeViT~\citep{graham2021levit} represents the most frequent disagreement pattern (330 cases, 42.6\% of disagreements):
+
+\begin{itemize}
+    \item \textbf{FLOPs view}: 0.305 GFLOPs, ratio 0.075 relative to ResNet50---ranked \#2 in efficiency
+    \item \textbf{Measured efficiency}: Latency ratio 0.54-0.70, memory ratio 0.37---ranked \#7 in compound metric
+    \item \textbf{Rank shift}: 5 positions, from ``very efficient'' to ``below average''
+\end{itemize}
+
+\textbf{Technical explanation}: LeViT's vision transformer architecture achieves low FLOPs through attention mechanisms. However, attention operations create irregular memory access patterns that defeat cache prefetching, cause memory bandwidth bottlenecks, and resist the operator fusion that accelerates convolutions on edge NPUs.
+
+\subsubsection{Case Study: SqueezeNet (FLOPs Overestimates Cost)}
+
+SqueezeNet~\citep{iandola2016squeezenet} shows the opposite pattern (315 cases, 40.7\%):
+
+\begin{itemize}
+    \item \textbf{FLOPs view}: 0.352 GFLOPs, ratio 0.086---ranked \#5 in efficiency
+    \item \textbf{Measured efficiency}: Latency ratio 0.22-0.43---ranked \#2 in compound metric
+    \item \textbf{Rank shift}: 3 positions improvement
+\end{itemize}
+
+\textbf{Technical explanation}: SqueezeNet's fire modules (squeeze layers followed by expand layers) achieve high arithmetic intensity---the ratio of computation to memory access. Small intermediate tensors fit in cache, and the squeeze-expand pattern maps efficiently to mobile NPU architectures.
+
+\subsubsection{Statistical Significance}
+
+Mann-Whitney U tests confirm that FLOPs-ranked vs. reality-ranked model groups have significantly different characteristics:
+\begin{itemize}
+    \item Latency distributions: $U = 143{,}288$, $p < 0.0001$
+    \item Memory distributions: $U = 156{,}432$, $p < 0.0001$
+    \item Effect size (Cohen's d): 0.73 (medium-large)
+\end{itemize}
+
+The 50.8\%/49.2\% split between FLOPs-underestimating and FLOPs-overestimating cases suggests FLOPs isn't systematically biased in one direction---it simply captures different aspects than compound efficiency measures that incorporate measured latency and memory characteristics.
+
+\section{Alternative Approaches: A Survey}
+
+Given FLOPs limitations, what alternatives exist? We survey efficiency measurement approaches, analyzing their strengths and limitations.
+
+\subsection{Single-Number Metrics}
+
+\textbf{NetScore}~\citep{li2019netscore} combines accuracy, parameters, and FLOPs:
+\begin{equation}
+\text{NetScore} = 20 \cdot \log\left(\frac{\text{Accuracy}^\alpha}{\text{Params}^\beta \times \text{FLOPs}^\gamma}\right)
+\end{equation}
+
+\emph{Pros}: Provides a single comparable number; incorporates accuracy.\\
+\emph{Cons}: Arbitrary weighting parameters ($\alpha, \beta, \gamma$); still FLOPs-based at core.
+
+\textbf{Time-to-Accuracy}~\citep{coleman2017dawnbench}: Wall-clock time to reach target accuracy during training.
+
+\emph{Pros}: Directly measures what matters for training efficiency.\\
+\emph{Cons}: Training-focused, not applicable to inference; requires full training runs.
+
+\textbf{Energy-Delay Product}: $\text{EDP} = \text{Energy} \times \text{Latency}$
+
+\emph{Pros}: Captures both speed and power consumption.\\
+\emph{Cons}: Energy measurement requires specialized equipment; highly device-specific.
+
+\textbf{Roofline Analysis}~\citep{williams2009roofline}: Characterizes operations as compute-bound or memory-bound.
+
+\emph{Pros}: Explains performance bottlenecks; provides optimization guidance.\\
+\emph{Cons}: Requires detailed hardware knowledge; per-layer analysis is labor-intensive.
+
+\subsection{Multi-Metric Frameworks}
+
+\textbf{MLPerf Inference}~\citep{mattson2020mlperf}: Industry-standard benchmark suite.
+
+\emph{Metrics}: Throughput, latency (p50, p90, p99), energy.\\
+\emph{Pros}: Reproducible, widely adopted, comprehensive.\\
+\emph{Cons}: Expensive to run; limited model set; doesn't enable cross-platform prediction.
+
+\textbf{AI Benchmark}~\citep{ignatov2019ai}: Mobile device benchmarking app.
+
+\emph{Coverage}: 1000+ mobile devices.\\
+\emph{Pros}: Extensive edge device coverage; accessible.\\
+\emph{Cons}: Limited to mobile; closed methodology makes reproducibility difficult.
+
+\textbf{AIoTBench}~\citep{luo2021aiot}: Edge/IoT focused benchmarking.
+
+\emph{Pros}: Comprehensive edge coverage; multiple metrics.\\
+\emph{Cons}: No cross-platform prediction; requires extensive device access.
+
+\subsection{Pareto Frontier Approaches}
+
+Multi-objective NAS methods (NSGA-Net~\citep{lu2019nsga}, ProxylessNAS~\citep{cai2019proxylessnas}, FBNet~\citep{wu2019fbnet}) compute accuracy-efficiency Pareto frontiers. This correctly frames efficiency as multi-dimensional.
+
+\textbf{The device-specificity problem}: Pareto frontiers are computed independently per device. Different hardware produces different frontiers. Comprehensive evaluation requires $O(\text{models} \times \text{devices})$ benchmarks---exactly the cost problem we started with.
+
+\textbf{Our question}: Can Pareto frontiers transfer across devices? If so, benchmarking on one device could predict optimal model sets for many.
+
+\subsection{Compound Metrics}
+
+\textbf{Motivation}: Combine multiple efficiency dimensions into a single comparable score that captures runtime characteristics FLOPs misses.
+
+\textbf{Our FRM exploration}: We experimented with a compound metric combining normalized FLOPs, latency, and memory ratios via geometric mean:
+\begin{equation}
+\text{FRM} = \left(\frac{\text{FLOPs}(M)}{\text{FLOPs}(B)} \times \frac{\text{Latency}(M, D)}{\text{Latency}(B, D)} \times \frac{\text{Memory}(M, D)}{\text{Memory}(B, D)}\right)^{1/3}
+\end{equation}
+
+\textbf{Why geometric mean}: Balanced weighting (no component dominates), multiplicative relationships (efficiency compounds), and outlier robustness.
+
+\textbf{Important caveat}: We recognized that a stable compound metric isn't itself a contribution---it needs to enable something useful. This realization pushed us toward analyzing transferability rather than promoting a metric.
+
+\section{Our Empirical Exploration}
+
+\subsection{Research Evolution}
+
+Our understanding evolved through several phases:
+
+\textbf{Phase 1: Discovering FLOPs failure} (inertial convolutions): Firsthand experience with catastrophic FLOPs misprediction motivated systematic investigation.
+
+\textbf{Phase 2: Theoretical approach (KRT)}: We hypothesized that efficiency \emph{ratios} between models might exhibit cross-platform consistency. If Model A is 2$\times$ faster than Model B on GPU, perhaps similar ratios hold on edge devices? We explored modeling operations by class and transferring kernel performance characteristics.
+
+\emph{Result}: Ratio-based transfer proved challenging ($r^2 < 0.5$ on unseen devices). Hardware-model interactions---different accelerators favoring different operations, quantization effects, operator fusion variations---introduced substantial variance.
+
+\emph{Lesson}: Pure theoretical approaches face significant challenges for cross-platform efficiency prediction.
+
+\textbf{Phase 3: Compound metrics}: We developed FRM, achieving good ranking stability ($\rho=0.956$). But stability alone doesn't constitute a contribution.
+
+\textbf{Phase 4: Large-scale empirical analysis}: We realized our accumulated data could answer unexplored questions: How systematically does FLOPs fail? Do rankings (not ratios) transfer? What determines predictability?
+
+\subsection{Experimental Setup}
+
+\begin{table}[h]
+\centering
+\caption{Benchmark Configuration}
+\label{tab:setup}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Dimension} & \textbf{Count} & \textbf{Details} \\
+\midrule
+Models & 13 & CNN, Transformer, Hybrid families \\
+Devices & 106 & GPU (7), CPU (4), Edge (93) \\
+Frameworks & 3 & ONNX, PyTorch, TFLite \\
+\midrule
+Total evaluations & 1,527 & Comprehensive coverage \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Model diversity}:
+\begin{itemize}
+    \item Standard CNNs: ResNet18, ResNet50, DenseNet121
+    \item Mobile CNNs: MobileNetV2, MobileNetV3-Small, MNASNet, SqueezeNet
+    \item Efficient architectures: EfficientNet-B0, Inception-V3
+    \item Vision Transformers: LeViT-128S, DeiT-Tiny
+    \item Hybrid: ConvNeXt-Tiny, MobileViT-XXS
+\end{itemize}
+
+\textbf{Hardware diversity}:
+\begin{itemize}
+    \item Datacenter GPUs: A100, H100, H200, L40S, RTX 3090/4090/5090
+    \item Cloud CPUs: Azure D-series, E-series (v3, v5)
+    \item Edge devices: Google Pixel 2-9 series, Samsung Galaxy S21-S24, OnePlus, Xiaomi, Motorola, and 70+ additional mobile devices
+\end{itemize}
+
+\textbf{Measurement protocol}: Latency (median of 100 runs), peak memory, FLOPs (architecture-computed), accuracy (ImageNet Top-1), batch size 1.
+
+\subsection{Compound Metric Stability}
+
+Before analyzing transferability, we verified that compound metrics provide stable rankings:
+
+\begin{table}[h]
+\centering
+\caption{Ranking Stability Comparison}
+\label{tab:stability}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{Rank Correlation ($\rho$)} & \textbf{CV} \\
+\midrule
+Compound (FRM) & $0.956 \pm 0.047$ & 0.29 \\
+Latency only & $0.746 \pm 0.190$ & 1.40 \\
+Memory only & $0.721 \pm 0.203$ & 1.58 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Compound metrics are 4.8$\times$ more stable than latency alone. This stability is necessary but not sufficient---the interesting question is whether rankings transfer across platforms.
+
+\section{The Transferability Discovery}
+
+\subsection{Why Ratio-Based Transfer Proved Challenging}
+
+Our initial Kernel Ratio Transfer (KRT) hypothesis assumed efficiency ratios would be device-invariant. This approach could not reliably transfer ratios because:
+
+\begin{itemize}
+    \item \textbf{Accelerator specialization}: Mobile NPUs optimize for depthwise/pointwise convolutions; GPUs optimize for large matrix operations
+    \item \textbf{Quantization effects}: INT8 provides different speedup ratios on different hardware
+    \item \textbf{Operator fusion}: Framework-specific optimizations create platform-dependent efficiency
+    \item \textbf{Memory hierarchies}: Cache sizes and bandwidth vary dramatically across devices
+\end{itemize}
+
+The assumption that ``Model A is 2$\times$ faster than B everywhere'' proved too strong. Actual ratios vary by 35\% across platforms.
+
+\subsection{The Empirical Surprise: Rankings Transfer}
+
+While ratios don't transfer, we discovered that \emph{rankings} do---with remarkable fidelity.
+
+\begin{table}[h]
+\centering
+\caption{Cross-Platform Transfer Correlations}
+\label{tab:transfer}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Transfer} & \textbf{Compound $\rho$} & \textbf{Latency $\rho$} & \textbf{Improvement} \\
+\midrule
+GPU $\rightarrow$ Edge & $0.961 \pm 0.026$ & $0.582 \pm 0.089$ & +65\% \\
+CPU $\rightarrow$ Edge & $0.887 \pm 0.052$ & $0.503 \pm 0.112$ & +76\% \\
+Edge $\rightarrow$ GPU & $0.968 \pm 0.018$ & $0.620 \pm 0.075$ & +56\% \\
+Edge $\rightarrow$ CPU & $0.931 \pm 0.034$ & $0.571 \pm 0.094$ & +63\% \\
+\midrule
+\textbf{Overall cross-tier} & $\mathbf{0.907}$ & $0.582$ & \textbf{+56\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key finding}: GPU benchmarks predict edge device rankings with $\rho=0.961$. This means benchmarking 13 models on one RTX 4090 enables predicting efficiency rankings across 93 edge devices with high confidence.
+
+\textbf{Why rankings transfer better than metrics}:
+\begin{itemize}
+    \item Architectural properties dominate: Compute patterns, memory access, parallelizability are architecture-inherent
+    \item Platform effects are multiplicative: Different hardware \emph{scales} efficiency but often doesn't \emph{reorder} rankings
+    \item Geometric mean smooths noise: Platform-specific perturbations partially cancel in compound metrics
+\end{itemize}
+
+\subsection{Architecture-Dependent Predictability}
+
+Not all architectures transfer equally. This is our most practically important finding:
+
+\begin{table}[h]
+\centering
+\caption{Transfer Prediction Error by Architecture Family}
+\label{tab:arch_transfer}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Architecture Family} & \textbf{Prediction Error} & \textbf{Interpretation} \\
+\midrule
+Standard CNN (ResNet, DenseNet) & 5.2\% & Very predictable \\
+Mobile CNN (MobileNet, MNASNet) & 7.8\% & Mostly predictable \\
+Efficient CNN (EfficientNet, SqueezeNet) & 6.4\% & Predictable \\
+\midrule
+Vision Transformer (LeViT, DeiT) & 23.4\% & \textbf{Unpredictable} \\
+Hybrid (ConvNeXt, MobileViT) & 15.6\% & Mixed behavior \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Why transformer rankings show greater variance}:
+\begin{itemize}
+    \item \textbf{Platform-dependent attention optimization}: Flash Attention provides 2-4$\times$ speedup on GPUs; no equivalent exists for edge NPUs
+    \item \textbf{Memory bandwidth sensitivity}: Attention is memory-bound; bandwidth varies dramatically across hardware
+    \item \textbf{Quantization interaction}: Transformer quantization effects are less predictable than CNN quantization
+\end{itemize}
+
+\textbf{Practical implication}: CNN rankings transfer reliably; transformer rankings benefit from validation on target hardware.
+
+\subsection{Pareto Frontier Transferability}
+
+The ranking transfer finding has practical application: predicting which models will be Pareto-optimal on unseen devices.
+
+\textbf{Method}: Benchmark models on source device (e.g., RTX 4090), identify accuracy-efficiency Pareto frontier, predict same frontier applies to target devices.
+
+\begin{table}[h]
+\centering
+\caption{Pareto Frontier Prediction Accuracy}
+\label{tab:pareto}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Source} & \textbf{Target} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+\midrule
+RTX 4090 & Edge (93 devices) & 0.92 & 0.89 & 0.90 \\
+A100 & Edge (93 devices) & 0.90 & 0.87 & 0.88 \\
+CPU v5 & Edge (93 devices) & 0.85 & 0.82 & 0.83 \\
+\midrule
+\textbf{Overall} & & \textbf{0.89} & \textbf{0.86} & \textbf{0.87} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Cost reduction}: Traditional approach requires 13 models $\times$ 106 devices = 1,378 benchmark runs. Transfer approach requires 13 runs on reference device. This is a \textbf{99.5\% reduction} with 87\% F1 accuracy---enabling small research groups to make informed cross-platform decisions without access to extensive hardware resources.
+
+\textbf{Caveat}: These numbers apply primarily to CNN-dominated model sets. Transformer-heavy sets require additional validation.
+
+\section{A Practical Framework}
+
+Based on our findings, we propose a decision framework for efficiency assessment.
+
+\subsection{When to Use Which Approach}
+
+\textbf{Use FLOPs when}:
+\begin{itemize}
+    \item Early architecture exploration (rough filtering)
+    \item Comparing similar architectures (ResNet50 vs ResNet101)
+    \item Reproducibility is critical and hardware access is limited
+    \item FLOPs proxy is acceptable for NAS search phase
+\end{itemize}
+
+\textbf{Use compound metrics (FRM or similar) when}:
+\begin{itemize}
+    \item Cross-platform comparison is needed
+    \item Comparing diverse architectures (CNN vs transformer)
+    \item Transfer predictions are acceptable (CNN-dominated sets)
+    \item Stability matters more than absolute accuracy
+\end{itemize}
+
+\textbf{Use direct benchmarking when}:
+\begin{itemize}
+    \item Production deployment decisions
+    \item Transformer-heavy model sets
+    \item Novel architectures without transfer data
+    \item Specific device optimization
+\end{itemize}
+
+\subsection{Recommendations by Use Case}
+
+\textbf{For research papers}:
+\begin{itemize}
+    \item \textbf{Minimum}: Report FLOPs + latency on one reference device
+    \item \textbf{Better}: Include memory footprint and device specification
+    \item \textbf{Best}: Multi-device benchmarks or explicit single-device caveat
+    \item \textbf{Avoid}: FLOPs-only efficiency claims for novel architectures
+\end{itemize}
+
+\textbf{For multi-platform deployment}:
+\begin{itemize}
+    \item If CNN-only: Transfer from accessible device (expect $\rho > 0.9$)
+    \item If transformers included: Budget for target device validation
+    \item If cost-constrained: Prioritize edge benchmarks (most variable)
+\end{itemize}
+
+\textbf{For NAS and AutoML}:
+\begin{itemize}
+    \item Search phase: FLOPs proxy acceptable
+    \item Candidate selection: Move to hardware-in-the-loop
+    \item Final validation: Always on target device
+\end{itemize}
+
+\textbf{For production systems}:
+\begin{itemize}
+    \item No shortcuts: Benchmark on actual deployment hardware
+    \item Include variance: Report p50, p95, p99 latencies
+    \item Monitor: Production metrics often differ from benchmarks
+\end{itemize}
+
+\subsection{What We Recommend---and What We Don't Know}
+
+\textbf{We recommend}:
+\begin{itemize}
+    \item Use compound metrics for cross-platform comparison
+    \item Trust CNN rankings to transfer across hardware tiers
+    \item Validate transformer models on target devices
+    \item Report methodology for reproducibility
+\end{itemize}
+
+\textbf{We don't recommend}:
+\begin{itemize}
+    \item Trusting FLOPs alone for novel architectures
+    \item Assuming GPU benchmarks perfectly predict edge performance
+    \item Ignoring memory footprint (critical for edge)
+    \item Over-engineering: sometimes FLOPs is good enough
+\end{itemize}
+
+\textbf{What we don't know}:
+\begin{itemize}
+    \item Novel architectures (Mamba, RWKV): No transfer data
+    \item Large language models: Different efficiency dynamics
+    \item Training efficiency: Our analysis is inference-focused
+    \item Dynamic batching: All results at batch=1
+\end{itemize}
+
+\section{Discussion}
+
+\subsection{What We Learned}
+
+\textbf{About FLOPs}: Disagreements with compound metrics are systematic, not random noise. The 10\% inconsistency rate is significant for deployment decisions. Transformer architectures show the largest discrepancies between FLOPs predictions and measured efficiency characteristics.
+
+\textbf{About alternatives}: Compound metrics provide stability but aren't a universal solution. Rankings transfer better than absolute metrics. Architecture family is the key predictability factor---more important than hardware similarity.
+
+\textbf{About our research process}: Our exploration of ratio-based transfer revealed significant challenges; large-scale empirical analysis revealed unexpected patterns. The contribution isn't a new metric---it's understanding when different approaches work.
+
+\subsection{The State of Efficiency Measurement}
+
+\textbf{Current reality}:
+\begin{itemize}
+    \item No silver bullet metric exists
+    \item Context determines the appropriate approach
+    \item Comprehensive benchmarking remains expensive
+\end{itemize}
+
+\textbf{Progress made}:
+\begin{itemize}
+    \item Better quantification of FLOPs limitations
+    \item Transferability boundaries identified
+    \item Practical decision framework available
+\end{itemize}
+
+\textbf{Open challenges}:
+\begin{itemize}
+    \item Energy measurement standardization
+    \item Novel architecture generalization
+    \item Automated metric selection tools
+\end{itemize}
+
+\subsection{Recommendations for the Field}
+
+\textbf{For researchers}: Be explicit about efficiency metric limitations. Consider multi-device evaluation for deployment claims. Report methodology for reproducibility.
+
+\textbf{For practitioners}: Use transfer findings to reduce benchmarking cost. Validate transformers on target hardware. Don't over-trust any single metric.
+
+\textbf{For tool builders}: Standardize efficiency measurement APIs. Build cross-platform benchmark databases. Develop automated metric selection tools.
+
+\section{Conclusion}
+
+We conducted a large-scale empirical exploration of efficiency measurement approaches, spanning 1,527 benchmark evaluations across 106 devices and 13 model architectures. Our journey---from discovering FLOPs limitations firsthand, through challenging theoretical approaches, to surprising empirical findings---provides practical guidance for the research community.
+
+\textbf{Key takeaways}:
+\begin{enumerate}
+    \item FLOPs shows systematic disagreements with compound metrics: 774 documented cases---in 10\% of deployment decisions, FLOPs would recommend a different model
+    \item Rankings transfer better than metrics: $\rho=0.907$ cross-tier, enabling 99.5\% benchmarking cost reduction for CNN-dominated deployments
+    \item Architecture determines predictability: CNNs 5.2\%, Transformers 23.4\% prediction variance
+    \item No universal solution: Use our decision framework to choose appropriate metrics
+\end{enumerate}
+
+The efficiency measurement challenge won't be solved by a single ``better'' metric. What the field needs is clearer understanding of when each approach works---which is what we've tried to provide.
+
+Our benchmark data and analysis code are available to support future research in efficient deep learning.
+
+\subsubsection*{Acknowledgments}
+
+We thank our advisor for insightful guidance throughout this research journey. The iterative refinement process helped us focus on the most valuable empirical discoveries. We also thank the MLSys community for benchmarking infrastructure.
+
+\bibliography{iclr2026_conference}
+\bibliographystyle{iclr2026_conference}
+
+\appendix
+
+\section{Model Specifications}
+
+\begin{table}[h]
+\centering
+\caption{Model Architecture Details}
+\begin{tabular}{lrrrl}
+\toprule
+\textbf{Model} & \textbf{Params (M)} & \textbf{FLOPs (G)} & \textbf{Mem (MiB)} & \textbf{Family} \\
+\midrule
+ConvNeXt-Tiny & 28.59 & 4.46 & 109.06 & Hybrid \\
+DeiT-Tiny & 5.90 & 2.60 & 22.89 & Transformer \\
+DenseNet121 & 7.98 & 2.83 & 30.44 & CNN \\
+EfficientNet-B0 & 5.29 & 0.39 & 20.17 & Efficient \\
+Inception-V3 & 27.16 & 5.71 & 103.61 & CNN \\
+LeViT-128S & 7.80 & 0.31 & 29.75 & Transformer \\
+MNASNet1.0 & 4.38 & 0.31 & 16.72 & Mobile CNN \\
+MobileNetV2 & 3.51 & 0.31 & 13.37 & Mobile CNN \\
+MobileNetV3-Small & 2.54 & 0.06 & 9.70 & Mobile CNN \\
+MobileViT-XXS & 1.30 & 0.70 & 4.96 & Hybrid \\
+ResNet18 & 11.69 & 1.81 & 44.59 & CNN \\
+ResNet50 & 25.56 & 4.09 & 97.49 & CNN \\
+SqueezeNet1.1 & 1.24 & 0.35 & 4.71 & Efficient \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Device Coverage}
+
+\textbf{GPU Tier} (7 devices): NVIDIA A100-SXM, H100-SXM, H200-SXM, L40S, RTX 3090, RTX 4090, RTX 5090, RTX 6000 Ada
+
+\textbf{CPU Tier} (4 configurations): Azure Standard\_D16s\_v3, Standard\_D16s\_v5, Standard\_E16s\_v3, Standard\_E16s\_v5
+
+\textbf{Edge Tier} (93 devices): Google Pixel 2-9 series (15 variants), Samsung Galaxy S21-S24 series, OnePlus 10T/11/Nord2, Xiaomi 12/13 series, Motorola Edge 30/Razr Plus, and 60+ additional mobile devices from various manufacturers.
+
+\section{KRT Approach Details}
+
+For completeness, we document our Kernel Ratio Transfer (KRT) exploration:
+
+\textbf{Hypothesis}: Efficiency ratios between models are device-invariant.
+
+\textbf{Formulation}: For models A, B and devices 1, 2:
+\begin{equation}
+\frac{\text{Latency}(A, D_1)}{\text{Latency}(B, D_1)} \approx \frac{\text{Latency}(A, D_2)}{\text{Latency}(B, D_2)}
+\end{equation}
+
+\textbf{Results}: $r^2 < 0.5$ on held-out devices. The assumption proved too strong for reliable cross-platform prediction.
+
+\textbf{Analysis}: Hardware-model interactions create non-transferable ratio variations:
+\begin{itemize}
+    \item MobileNetV3/ResNet50 ratio: 0.31 on Edge, 0.85 on GPU (2.7$\times$ difference)
+    \item LeViT/ResNet50 ratio: 0.74 on Edge, 1.46 on GPU (2.0$\times$ difference)
+\end{itemize}
+
+\textbf{Lesson}: Ratio transfer requires stronger architectural similarity than we assumed. Rankings, which only require ordinal preservation, are more robust to hardware variations.
+
+\section{Reproducibility}
+
+All code, data, and analysis scripts available at: [Repository URL]
+
+\textbf{Benchmark reproduction}:
+\begin{itemize}
+    \item GPU: NVIDIA container, PyTorch 2.0+, ONNX Runtime 1.15+
+    \item CPU: Azure VM instances with specified SKUs
+    \item Edge: AI Benchmark app, custom TFLite harness
+\end{itemize}
+
+\textbf{Statistical analysis}: All significance tests use $\alpha=0.05$ with Bonferroni correction. Confidence intervals are 95\% bootstrap.
+
+\section{Ablation: Normalization Strategies}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{fig-2.jpg}
+\caption{Comparison of normalization strategies for cross-platform efficiency prediction. Device-specific normalization significantly outperforms universal approaches, confirming that hardware-specific characteristics must be accounted for in compound metrics.}
+\label{fig:normalization_ablation}
+\end{figure}
+
+We performed an ablation study comparing different normalization approaches for latency prediction. The results confirm that device-specific normalization is the most effective strategy:
+
+\begin{table}[h]
+\centering
+\caption{Normalization Strategy Comparison}
+\label{tab:normalization_ablation}
+\begin{tabular}{lc}
+\toprule
+\textbf{Normalization Strategy} & \textbf{Spearman's $\rho$} \\
+\midrule
+Device-specific normalization (ours) & \textbf{0.901} \\
+Universal FLOPs/params + device latency & 0.841 \\
+Pure universal (FLOPs + params only) & 0.777 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key insight}: Device-specific normalization achieves $\rho = 0.901$, surpassing both the hybrid approach combining universal FLOPs/params with device-specific latency ($\rho = 0.841$) and a pure universal model using only FLOPs and parameters without any runtime data ($\rho = 0.777$). These results confirm that device-specific normalization best accounts for the unique hardware characteristics of each device, and that incorporating measured runtime data provides substantial benefits over theoretical complexity measures alone.
+
+\end{document}

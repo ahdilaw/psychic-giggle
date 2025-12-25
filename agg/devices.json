@@ -1,0 +1,64 @@
+{
+  "A100_SXM": {
+    "D": { "Pd_TFLOPs": 19.22, "BWd_GBs": 885.01, "AI": 21.79 },
+    "P": { "Pd_TFLOPs": 19.25, "BWd_GBs": 884.68, "AI": 21.82 },
+    "S": { "Pd_TFLOPs": 19.5, "BWd_GBs": 2039, "AI": 9.56, "citation": "https://www.nvidia.com/en-us/data-center/a100/" }
+  },
+  "H100_SXM": {
+    "D": { "Pd_TFLOPs": 52.00, "BWd_GBs": 1524.26, "AI": 34.12 },
+    "P": { "Pd_TFLOPs": 52.36, "BWd_GBs": 1524.23, "AI": 34.35 },
+    "S": { "Pd_TFLOPs": 67.0, "BWd_GBs": 3350, "AI": 20.0, "citation": "https://www.nvidia.com/en-us/data-center/h100/" }
+  },
+  "L40S": {
+    "D": { "Pd_TFLOPs": 45.45, "BWd_GBs": 327.47, "AI": 138.82 },
+    "P": { "Pd_TFLOPs": 48.84, "BWd_GBs": 327.64, "AI": 149.15 },
+    "S": { "Pd_TFLOPs": 91.6, "BWd_GBs": 864.0, "AI": 106.02, "citation": "https://www.nvidia.com/en-us/data-center/l40s/" }
+  },
+  "RTX_4090": {
+    "D": { "Pd_TFLOPs": 59.90, "BWd_GBs": 459.57, "AI": 130.39 },
+    "P": { "Pd_TFLOPs": 59.63, "BWd_GBs": 459.90, "AI": 129.77 },
+    "S": { "Pd_TFLOPs": 82.6, "BWd_GBs": 1008, "AI": 81.94, "citation": "https://vast.ai/pricing/gpu/RTX-4090" }
+  },
+  "RTX_6000_ADA": {
+    "D": { "Pd_TFLOPs": 38.86, "BWd_GBs": 424.07, "AI": 91.93 },
+    "P": { "Pd_TFLOPs": 51.41, "BWd_GBs": 423.58, "AI": 121.49 },
+    "S": { "Pd_TFLOPs": 91.1, "BWd_GBs": 960, "AI": 94.90, "citation": "https://www.gpu-monkey.com/en/gpu-nvidia_rtx_6000_ada" }
+  },
+  "RTX_3090": {
+    "D": { "Pd_TFLOPs": 24.84, "BWd_GBs": 421.59, "AI": 58.98 },
+    "P": { "Pd_TFLOPs": 24.94, "BWd_GBs": 421.71, "AI": 59.72 },
+    "S": { "Pd_TFLOPs": 35.6, "BWd_GBs": 936, "AI": 38.03, "citation": "https://images.nvidia.com/aem-dam/Solutions/geforce/ada/nvidia-ada-gpu-architecture.pdf" }
+  },
+  "H200": {
+    "D": { "Pd_TFLOPs": 51.384, "BWd_GBs": 2150.953, "AI": 23.89 },
+    "P": { "Pd_TFLOPs": 51.379, "BWd_GBs": 2150.62, "AI": 23.89 },
+    "S": { "Pd_TFLOPs": 67.0, "BWd_GBs": 4800, "AI": 13.96, "citation": "https://www.nvidia.com/en-us/data-center/h200/" }
+  },
+  "RTX_5090": {
+    "D": {  },
+    "P": {  },
+    "S": { "Pd_TFLOPs": 104.8, "BWd_GBs": 1792.0, "AI": 0.0585, "citation": "https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf" }
+  },
+
+  "CPU_MEM_v5": {
+    "D": { "Pd_TFLOPs": 0.14, "BWd_GBs": 48.92, "AI": 2.84 },
+    "P": { "Pd_TFLOPs": 0.28, "BWd_GBs": 67.16, "AI": 4.14 },
+    "S": {  }
+  },
+  "CPU_GP_v5": {
+    "D": { "Pd_TFLOPs": 0.14, "BWd_GBs": 48.94, "AI": 2.88 },
+    "P": { "Pd_TFLOPs": 0.28, "BWd_GBs": 67.06, "AI": 4.16 },
+    "S": {  }
+  },
+  "CPU_MEM_v3": {
+    "D": { "Pd_TFLOPs": 0.124, "BWd_GBs": 45.34, "AI": 2.78 },
+    "P": { "Pd_TFLOPs": 0.247, "BWd_GBs": 64.78, "AI": 3.89 },
+    "S": {  }
+  },
+  "CPU_GP_v3": {
+    "D": {  },
+    "P": {  },
+    "S": {  }
+  }
+
+}

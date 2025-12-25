@@ -1,0 +1,126 @@
+\begin{thebibliography}{16}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Cai et~al.(2019)Cai, Zhu, and Han]{cai2019proxylessnas}
+Han Cai, Ligeng Zhu, and Song Han.
+\newblock Proxylessnas: Direct neural architecture search on target task and
+  hardware.
+\newblock In \emph{International Conference on Learning Representations}, 2019.
+
+\bibitem[Coleman et~al.(2017)Coleman, Narayanan, Kang, Zhao, Zhang, Nardi,
+  Bailis, Olukotun, R{\'e}, and Zaharia]{coleman2017dawnbench}
+Cody Coleman, Deepak Narayanan, Daniel Kang, Tian Zhao, Jian Zhang, Luigi
+  Nardi, Peter Bailis, Kunle Olukotun, Chris R{\'e}, and Matei Zaharia.
+\newblock Dawnbench: An end-to-end deep learning benchmark and competition.
+\newblock \emph{NeurIPS ML Systems Workshop}, 2017.
+
+\bibitem[Graham et~al.(2021)Graham, El-Nouby, Touvron, Stock, Joulin,
+  J{\'e}gou, and Douze]{graham2021levit}
+Benjamin Graham, Alaaeldin El-Nouby, Hugo Touvron, Pierre Stock, Armand Joulin,
+  Herv{\'e} J{\'e}gou, and Matthijs Douze.
+\newblock Levit: a vision transformer in convnet's clothing for faster
+  inference.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pp.\  12259--12269, 2021.
+
+\bibitem[He et~al.(2016)He, Zhang, Ren, and Sun]{he2016deep}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, pp.\  770--778, 2016.
+
+\bibitem[Howard et~al.(2019)Howard, Sandler, Chu, Chen, Chen, Tan, Wang, Zhu,
+  Pang, Vasudevan, et~al.]{howard2019searching}
+Andrew Howard, Mark Sandler, Grace Chu, Liang-Chieh Chen, Bo~Chen, Mingxing
+  Tan, Weijun Wang, Yukun Zhu, Ruoming Pang, Vijay Vasudevan, et~al.
+\newblock Searching for mobilenetv3.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pp.\  1314--1324, 2019.
+
+\bibitem[Iandola et~al.(2016)Iandola, Han, Moskewicz, Ashraf, Dally, and
+  Keutzer]{iandola2016squeezenet}
+Forrest~N Iandola, Song Han, Matthew~W Moskewicz, Khalid Ashraf, William~J
+  Dally, and Kurt Keutzer.
+\newblock Squeezenet: Alexnet-level accuracy with 50x fewer parameters and< 0.5
+  mb model size.
+\newblock \emph{arXiv preprint arXiv:1602.07360}, 2016.
+
+\bibitem[Ignatov et~al.(2019)Ignatov, Timofte, Kulik, Yang, Wang, Baum, Wu, Xu,
+  and Van~Gool]{ignatov2019ai}
+Andrey Ignatov, Radu Timofte, Andrei Kulik, Seungsoo Yang, Ke~Wang, Felix Baum,
+  Max Wu, Lirong Xu, and Luc Van~Gool.
+\newblock Ai benchmark: All about deep learning on smartphones in 2019.
+\newblock \emph{arXiv preprint arXiv:1910.06663}, 2019.
+
+\bibitem[Li et~al.(2019)Li, Yu, Yang, and Chen]{li2019netscore}
+Xiangyu Li, Jiahao Yu, Sijie Yang, and Yiyan Chen.
+\newblock Netscore: Towards universal metrics for large-scale performance
+  analysis of deep neural networks for practical on-device edge deployment.
+\newblock \emph{arXiv preprint arXiv:1907.04266}, 2019.
+
+\bibitem[Lu et~al.(2019)Lu, Whalen, Boddeti, Dhebar, Deb, Goodman, and
+  Banzhaf]{lu2019nsga}
+Zhichao Lu, Ian Whalen, Vishnu Boddeti, Yashesh Dhebar, Kalyanmoy Deb, Erik
+  Goodman, and Wolfgang Banzhaf.
+\newblock Nsga-net: Neural architecture search using multi-objective genetic
+  algorithm.
+\newblock In \emph{Proceedings of the Genetic and Evolutionary Computation
+  Conference}, pp.\  419--427, 2019.
+
+\bibitem[Luo et~al.(2021)Luo, Zhang, Zhan, Shi, Fan, and Wang]{luo2021aiot}
+Chunjie Luo, Xin Zhang, Jianfeng Zhan, Chao Shi, Wanling Fan, and Lei Wang.
+\newblock Aiot-bench: Towards comprehensive benchmarking mobile and embedded
+  device intelligence.
+\newblock In \emph{Benchmarking, Measuring, and Optimizing}, pp.\  31--35.
+  Springer, 2021.
+
+\bibitem[Ma et~al.(2018)Ma, Zhang, Zheng, and Sun]{ma2018shufflenet}
+Ningning Ma, Xiangyu Zhang, Hai-Tao Zheng, and Jian Sun.
+\newblock Shufflenet v2: Practical guidelines for efficient cnn architecture
+  design.
+\newblock In \emph{Proceedings of the European Conference on Computer Vision
+  (ECCV)}, pp.\  116--131, 2018.
+
+\bibitem[Mattson et~al.(2020)Mattson, Cheng, Diamos, Coleman, Micikevicius,
+  Patterson, Tang, Wei, Bailis, Bittorf, et~al.]{mattson2020mlperf}
+Peter Mattson, Christine Cheng, Gregory Diamos, Cody Coleman, Paulius
+  Micikevicius, David Patterson, Hanlin Tang, Gu-Yeon Wei, Peter Bailis, Victor
+  Bittorf, et~al.
+\newblock Mlperf training benchmark.
+\newblock \emph{Proceedings of Machine Learning and Systems}, 2:\penalty0
+  336--349, 2020.
+
+\bibitem[Simonyan \& Zisserman(2014)Simonyan and Zisserman]{simonyan2014very}
+Karen Simonyan and Andrew Zisserman.
+\newblock Very deep convolutional networks for large-scale image recognition.
+\newblock \emph{arXiv preprint arXiv:1409.1556}, 2014.
+
+\bibitem[Tan \& Le(2019)Tan and Le]{tan2019efficientnet}
+Mingxing Tan and Quoc Le.
+\newblock Efficientnet: Rethinking model scaling for convolutional neural
+  networks.
+\newblock In \emph{International Conference on Machine Learning}, pp.\
+  6105--6114. PMLR, 2019.
+
+\bibitem[Williams et~al.(2009)Williams, Waterman, and
+  Patterson]{williams2009roofline}
+Samuel Williams, Andrew Waterman, and David Patterson.
+\newblock Roofline: An insightful visual performance model for multicore
+  architectures.
+\newblock \emph{Communications of the ACM}, 52\penalty0 (4):\penalty0 65--76,
+  2009.
+
+\bibitem[Wu et~al.(2019)Wu, Dai, Zhang, Wang, Sun, Wu, Tian, Vajda, Jia, and
+  Keutzer]{wu2019fbnet}
+Bichen Wu, Xiaoliang Dai, Peizhao Zhang, Yanghan Wang, Fei Sun, Yiming Wu,
+  Yuandong Tian, Peter Vajda, Yangqing Jia, and Kurt Keutzer.
+\newblock Fbnet: Hardware-aware efficient convnet design via differentiable
+  neural architecture search.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, pp.\  10734--10742, 2019.
+
+\end{thebibliography}

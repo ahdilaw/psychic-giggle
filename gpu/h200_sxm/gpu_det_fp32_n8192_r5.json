@@ -1,0 +1,777 @@
+{
+  "benchmark_info": {
+    "timestamp_utc": "2025-09-25T05:35:34.139328Z",
+    "total_runs": 5,
+    "benchmark_type": "cpu_gpu_performance",
+    "script_version": "paper-grade",
+    "units_specification": {
+      "cpu_memory_bandwidth": "GB/s (STREAM Triad, 32B accounting for write-allocate, 1e9 bytes/sec)",
+      "cpu_compute": "GFLOP/s (single-precision SGEMM, best-effort BLAS)",
+      "gpu_memory_bandwidth": "GB/s (device-to-device copy, 1e9 bytes/sec)",
+      "gpu_compute": "TFLOP/s (single-precision SGEMM, FP32-exact or TF32)",
+      "computational_intensity": "FLOP/byte (arithmetic intensity, roofline model)"
+    },
+    "statistical_notes": {
+      "confidence_intervals": "95% confidence intervals based on normal distribution",
+      "best_values": "Maximum observed performance across all runs",
+      "aggregation_method": "Sample statistics across independent benchmark runs",
+      "stream_methodology": "STREAM Triad uses 32-byte accounting (read b, read c, write-allocate read a, write a) to reflect actual bus traffic on CPUs without non-temporal stores"
+    }
+  },
+  "device_info": {
+    "timestamp_utc": "2025-09-25T05:33:53.838295Z",
+    "python": "3.11.11 (main, Dec  4 2024, 08:55:07) [GCC 11.4.0]",
+    "platform": "Linux-6.8.0-52-generic-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "uname": "Linux b6aed2c9d0e5 6.8.0-52-generic #53~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Jan 15 19:18:46 UTC 2 x86_64 x86_64 x86_64 GNU/Linux\n",
+    "os_release": "PRETTY_NAME=\"Ubuntu 22.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.5 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+    "lscpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        46 bits physical, 57 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               160\nOn-line CPU(s) list:                  0-159\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Xeon(R) Platinum 8460Y+\nCPU family:                           6\nModel:                                143\nThread(s) per core:                   2\nCore(s) per socket:                   40\nSocket(s):                            2\nStepping:                             8\nCPU max MHz:                          3700.0000\nCPU min MHz:                          800.0000\nBogoMIPS:                             4000.00\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cat_l2 cdp_l3 intel_ppin cdp_l2 ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect user_shstk avx_vnni avx512_bf16 wbnoinvd dtherm ida arat pln pts hfi vnmi avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid bus_lock_detect cldemote movdiri movdir64b enqcmd fsrm md_clear serialize tsxldtrk pconfig arch_lbr ibt amx_bf16 avx512_fp16 amx_tile amx_int8 flush_l1d arch_capabilities\nVirtualization:                       VT-x\nL1d cache:                            3.8 MiB (80 instances)\nL1i cache:                            2.5 MiB (80 instances)\nL2 cache:                             160 MiB (80 instances)\nL3 cache:                             210 MiB (2 instances)\nNUMA node(s):                         2\nNUMA node0 CPU(s):                    0-39,80-119\nNUMA node1 CPU(s):                    40-79,120-159\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Not affected\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\n",
+    "smt_control": "on",
+    "cpu_governors": {
+      "/sys/devices/system/cpu/cpufreq/policy140": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy78": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy11": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy102": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy130": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy8": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy68": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy159": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy96": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy120": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy58": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy149": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy86": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy110": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy48": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy139": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy76": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy100": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy38": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy129": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy6": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy66": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy157": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy94": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy28": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy119": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy56": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy147": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy84": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy18": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy109": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy46": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy137": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy74": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy36": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy127": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy4": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy64": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy155": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy92": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy26": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy117": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy54": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy145": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy82": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy16": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy107": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy44": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy135": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy72": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy34": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy125": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy2": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy62": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy153": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy90": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy24": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy115": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy52": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy143": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy80": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy14": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy105": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy42": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy133": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy70": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy99": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy32": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy123": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy0": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy60": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy151": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy89": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy22": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy113": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy50": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy141": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy79": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy12": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy103": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy40": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy131": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy9": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy69": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy97": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy30": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy121": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy59": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy87": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy20": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy111": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy49": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy77": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy10": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy101": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy39": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy7": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy67": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy158": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy95": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy29": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy57": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy148": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy85": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy19": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy47": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy138": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy75": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy37": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy128": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy5": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy65": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy156": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy93": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy27": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy118": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy55": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy146": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy83": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy17": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy108": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy45": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy136": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy73": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy35": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy126": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy3": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy63": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy154": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy91": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy25": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy116": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy53": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy144": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy81": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy15": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy106": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy43": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy134": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy71": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy33": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy124": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy1": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy61": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy152": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy23": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy114": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy51": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy142": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy13": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy104": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy41": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy132": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy98": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy31": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy122": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy150": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy88": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy21": "schedutil",
+      "/sys/devices/system/cpu/cpufreq/policy112": "schedutil"
+    },
+    "meminfo": "MemTotal:       2113416056 kB\nMemFree:        609963572 kB\nMemAvailable:   1944548388 kB\nBuffers:          756048 kB\nCached:         1333116876 kB\nSwapCached:            0 kB\nActive:         409066912 kB\nInactive:       1042876408 kB\nActive(anon):   122124416 kB\nInactive(anon):   363312 kB\nActive(file):   286942496 kB\nInactive(file): 1042513096 kB\nUnevictable:       31268 kB\nMlocked:           28196 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:           2880292 kB\nWriteback:             0 kB\nAnonPages:      118102332 kB\nMapped:         20274760 kB\nShmem:           4408264 kB\nKReclaimable:   15711164 kB\nSlab:           22541652 kB\nSReclaimable:   15711164 kB\nSUnreclaim:      6830488 kB\nKernelStack:       95936 kB\nPageTables:       512096 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    1056708028 kB\nCommitted_AS:   271693200 kB\nVmallocTotal:   13743895347199 kB\nVmallocUsed:      817100 kB\nVmallocChunk:          0 kB\nPercpu:          1285760 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:   6991872 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:  15986688 kB\nFilePmdMapped:      2048 kB\nUnaccepted:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:    793072064 kB\nDirectMap2M:    1302702080 kB\nDirectMap1G:    53477376 kB\n",
+    "lspci_vga": "02:00.0 VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 52)\n18:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\n2a:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\n3a:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\n5d:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\n9a:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\nab:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\nba:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\ndb:00.0 3D controller: NVIDIA Corporation Device 2335 (rev a1)\n",
+    "nvidia_gpus": "not_available: No module named 'nvidia_ml_py3'",
+    "versions_perf_env": {
+      "numpy": "2.3.3",
+      "torch": "2.8.0+cu128",
+      "nvidia_ml_py3": "not_installed"
+    },
+    "cuda_runtime_info": {
+      "cuda_version": "12.8",
+      "cudnn_version": 91002,
+      "cuda_available": true,
+      "cublas_version": 120804
+    }
+  },
+  "cpu_results": {
+    "runs": [],
+    "aggregated": {}
+  },
+  "gpu_results": {
+    "runs": [
+      {
+        "memory_bandwidth_gbs": 2150.3537266961407,
+        "compute_tflops": 51.37564289494583,
+        "intensity_flop_per_byte": 23.89,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "345, 3201, 19, 82.52",
+          "gpu_clocks_post": "1980, 3201, 38, 324.25",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.021422702819108963,
+              "tflops": 51.32459881743961
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.0214198287576437,
+              "tflops": 51.33148542952929
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.021411973983049393,
+              "tflops": 51.35031588616813
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.021419432014226913,
+              "tflops": 51.33243622173071
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.0214095339179039,
+              "tflops": 51.35616833099409
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.0214014183729887,
+              "tflops": 51.37564289494583
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.021426480263471603,
+              "tflops": 51.31555039632313
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.021439876407384872,
+              "tflops": 51.283487221842286
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.021412158384919167,
+              "tflops": 51.34987365638015
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.021401964128017426,
+              "tflops": 51.37433280418517
+            }
+          ],
+          "timings_raw": [
+            0.021422702819108963,
+            0.0214198287576437,
+            0.021411973983049393,
+            0.021419432014226913,
+            0.0214095339179039,
+            0.0214014183729887,
+            0.021426480263471603,
+            0.021439876407384872,
+            0.021412158384919167,
+            0.021401964128017426
+          ],
+          "best_tflops": 51.37564289494583,
+          "mean_tflops": 51.33938916595385,
+          "std_tflops": 0.026587835634409532,
+          "ci95_single_run": 0.01647931125714872,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "memory_size_bytes": 8589934592,
+          "d2d_bandwidth_gbs": 2150.3537266961407,
+          "h2d_bandwidth_gbs": 55.31687436115516,
+          "d2h_bandwidth_gbs": 53.890118541645656,
+          "best_bandwidth_gbs": 2150.3537266961407,
+          "gpu_clocks_pre": "1980, 3201, 21, 111.04",
+          "gpu_clocks_post": "1980, 3201, 21, 125.50",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 20,
+          "units": {
+            "bandwidth": "GB/s (1e9)"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 2150.6286952701357,
+        "compute_tflops": 51.35917995597032,
+        "intensity_flop_per_byte": 23.88,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "780, 3201, 20, 76.60",
+          "gpu_clocks_post": "1980, 3201, 39, 356.02",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.02141253650188446,
+              "tflops": 51.34896688578838
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.02140827849507332,
+              "tflops": 51.35917995597032
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.02140890806913376,
+              "tflops": 51.357669631045695
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.021412646397948265,
+              "tflops": 51.34870334763264
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.021431006491184235,
+              "tflops": 51.3047125541346
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.021430393680930138,
+              "tflops": 51.30617963189364
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.02140912413597107,
+              "tflops": 51.35715131515485
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.021415255963802338,
+              "tflops": 51.34244622779557
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.02143343724310398,
+              "tflops": 51.29889412066924
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.021432043984532356,
+              "tflops": 51.3022289693659
+            }
+          ],
+          "timings_raw": [
+            0.02141253650188446,
+            0.02140827849507332,
+            0.02140890806913376,
+            0.021412646397948265,
+            0.021431006491184235,
+            0.021430393680930138,
+            0.02140912413597107,
+            0.021415255963802338,
+            0.02143343724310398,
+            0.021432043984532356
+          ],
+          "best_tflops": 51.35917995597032,
+          "mean_tflops": 51.332613263945085,
+          "std_tflops": 0.02469031799078316,
+          "ci95_single_run": 0.015303217636922575,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "memory_size_bytes": 8589934592,
+          "d2d_bandwidth_gbs": 2150.6286952701357,
+          "h2d_bandwidth_gbs": 55.31999976101606,
+          "d2h_bandwidth_gbs": 53.81588237063866,
+          "best_bandwidth_gbs": 2150.6286952701357,
+          "gpu_clocks_pre": "1980, 3201, 21, 105.97",
+          "gpu_clocks_post": "1980, 3201, 22, 125.11",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 20,
+          "units": {
+            "bandwidth": "GB/s (1e9)"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 2150.3562333859513,
+        "compute_tflops": 51.36360866923504,
+        "intensity_flop_per_byte": 23.89,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "345, 3201, 20, 76.58",
+          "gpu_clocks_post": "1980, 3201, 38, 323.95",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.02141183614730835,
+              "tflops": 51.35064644674194
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.02140643261373043,
+              "tflops": 51.36360866923504
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.021408850327134132,
+              "tflops": 51.35780814827083
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.021412884816527367,
+              "tflops": 51.34813161313746
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.021441461518406868,
+              "tflops": 51.27969596811773
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.021432997658848763,
+              "tflops": 51.29994624536615
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.02141115441918373,
+              "tflops": 51.3522814440529
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.02141679637134075,
+              "tflops": 51.338753411660115
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.021421024575829506,
+              "tflops": 51.328619874543165
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.02142949216067791,
+              "tflops": 51.30833803861909
+            }
+          ],
+          "timings_raw": [
+            0.02141183614730835,
+            0.02140643261373043,
+            0.021408850327134132,
+            0.021412884816527367,
+            0.021441461518406868,
+            0.021432997658848763,
+            0.02141115441918373,
+            0.02141679637134075,
+            0.021421024575829506,
+            0.02142949216067791
+          ],
+          "best_tflops": 51.36360866923504,
+          "mean_tflops": 51.33278298597444,
+          "std_tflops": 0.026567594696961905,
+          "ci95_single_run": 0.016466765794143665,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "memory_size_bytes": 8589934592,
+          "d2d_bandwidth_gbs": 2150.3562333859513,
+          "h2d_bandwidth_gbs": 55.320097243630684,
+          "d2h_bandwidth_gbs": 53.931930637463104,
+          "best_bandwidth_gbs": 2150.3562333859513,
+          "gpu_clocks_pre": "1980, 3201, 22, 112.83",
+          "gpu_clocks_post": "1980, 3201, 22, 125.69",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 20,
+          "units": {
+            "bandwidth": "GB/s (1e9)"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 2150.5621027006164,
+        "compute_tflops": 51.37899220202764,
+        "intensity_flop_per_byte": 23.89,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "345, 3201, 20, 76.56",
+          "gpu_clocks_post": "1980, 3201, 37, 344.58",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.021422863006591797,
+              "tflops": 51.32421504248435
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.02147369459271431,
+              "tflops": 51.202722616211894
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.021400023251771927,
+              "tflops": 51.37899220202764
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.02142372541129589,
+              "tflops": 51.322149003845546
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.0214371457695961,
+              "tflops": 51.29001965062983
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.02142350561916828,
+              "tflops": 51.3226755378556
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.02140631526708603,
+              "tflops": 51.363890237877115
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.02140657976269722,
+              "tflops": 51.36325559545912
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.021436545997858047,
+              "tflops": 51.29145469078198
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.02143133617937565,
+              "tflops": 51.30392330992923
+            }
+          ],
+          "timings_raw": [
+            0.021422863006591797,
+            0.02147369459271431,
+            0.021400023251771927,
+            0.02142372541129589,
+            0.0214371457695961,
+            0.02142350561916828,
+            0.02140631526708603,
+            0.02140657976269722,
+            0.021436545997858047,
+            0.02143133617937565
+          ],
+          "best_tflops": 51.37899220202764,
+          "mean_tflops": 51.316329788710235,
+          "std_tflops": 0.047852292476328794,
+          "ci95_single_run": 0.02965915815520464,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "memory_size_bytes": 8589934592,
+          "d2d_bandwidth_gbs": 2150.5621027006164,
+          "h2d_bandwidth_gbs": 55.31257981416467,
+          "d2h_bandwidth_gbs": 53.887365696729695,
+          "best_bandwidth_gbs": 2150.5621027006164,
+          "gpu_clocks_pre": "1980, 3201, 22, 109.44",
+          "gpu_clocks_post": "1980, 3201, 22, 125.69",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 20,
+          "units": {
+            "bandwidth": "GB/s (1e9)"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 2150.953092143733,
+        "compute_tflops": 51.38401474510638,
+        "intensity_flop_per_byte": 23.89,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "device": "cuda",
+          "gpu_clocks_pre": "345, 3201, 20, 83.26",
+          "gpu_clocks_post": "1980, 3201, 39, 326.15",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 0.021404778584837914,
+              "tflops": 51.36757773120997
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 0.02139793150126934,
+              "tflops": 51.38401474510638
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 0.021410617977380753,
+              "tflops": 51.35356807251332
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 0.021400846540927887,
+              "tflops": 51.377015655583875
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 0.02142665535211563,
+              "tflops": 51.31513106955519
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 0.021432772278785706,
+              "tflops": 51.30048569891743
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 0.021402351558208466,
+              "tflops": 51.37340281443527
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 0.02141485922038555,
+              "tflops": 51.34339742608891
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 0.02140430547297001,
+              "tflops": 51.368713138788635
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 0.021426964551210403,
+              "tflops": 51.31439057306364
+            }
+          ],
+          "timings_raw": [
+            0.021404778584837914,
+            0.02139793150126934,
+            0.021410617977380753,
+            0.021400846540927887,
+            0.02142665535211563,
+            0.021432772278785706,
+            0.021402351558208466,
+            0.02141485922038555,
+            0.02140430547297001,
+            0.021426964551210403
+          ],
+          "best_tflops": 51.38401474510638,
+          "mean_tflops": 51.349769692526266,
+          "std_tflops": 0.028434192040158932,
+          "ci95_single_run": 0.0176236948136123,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        },
+        "bandwidth_details": {
+          "memory_size_bytes": 8589934592,
+          "d2d_bandwidth_gbs": 2150.953092143733,
+          "h2d_bandwidth_gbs": 55.31997325031677,
+          "d2h_bandwidth_gbs": 53.9007158080168,
+          "best_bandwidth_gbs": 2150.953092143733,
+          "gpu_clocks_pre": "1980, 3201, 22, 119.61",
+          "gpu_clocks_post": "1980, 3201, 22, 125.65",
+          "warmup_iterations": 3,
+          "benchmark_iterations": 20,
+          "units": {
+            "bandwidth": "GB/s (1e9)"
+          }
+        }
+      }
+    ],
+    "aggregated": {
+      "memory_bandwidth_gbs": {
+        "values": [
+          2150.3537266961407,
+          2150.6286952701357,
+          2150.3562333859513,
+          2150.5621027006164,
+          2150.953092143733
+        ],
+        "mean": 2150.571,
+        "median": 2150.562,
+        "stdev": 0.246,
+        "ci95": 0.216,
+        "min": 2150.354,
+        "max": 2150.953,
+        "best": 2150.953,
+        "coefficient_of_variation": 0.01,
+        "units": "GB/s"
+      },
+      "compute_tflops": {
+        "values": [
+          51.37564289494583,
+          51.35917995597032,
+          51.36360866923504,
+          51.37899220202764,
+          51.38401474510638
+        ],
+        "mean": 51.372,
+        "median": 51.376,
+        "stdev": 0.01,
+        "ci95": 0.009,
+        "min": 51.359,
+        "max": 51.384,
+        "best": 51.384,
+        "coefficient_of_variation": 0.02,
+        "units": "TFLOP/s"
+      },
+      "intensity_flop_per_byte": {
+        "values": [
+          23.89,
+          23.88,
+          23.89,
+          23.89,
+          23.89
+        ],
+        "mean": 23.888,
+        "median": 23.89,
+        "stdev": 0.004,
+        "ci95": 0.004,
+        "min": 23.88,
+        "max": 23.89,
+        "best": 23.89,
+        "coefficient_of_variation": 0.02,
+        "units": "FLOP/byte"
+      }
+    }
+  }
+}

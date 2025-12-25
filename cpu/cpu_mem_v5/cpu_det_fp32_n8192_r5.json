@@ -1,0 +1,615 @@
+{
+  "benchmark_info": {
+    "timestamp_utc": "2025-09-21T09:29:47.116491Z",
+    "total_runs": 5,
+    "benchmark_type": "cpu_gpu_performance",
+    "script_version": "paper-grade",
+    "units_specification": {
+      "cpu_memory_bandwidth": "GB/s (STREAM Triad, 32B accounting for write-allocate, 1e9 bytes/sec)",
+      "cpu_compute": "GFLOP/s (single-precision SGEMM, best-effort BLAS)",
+      "gpu_memory_bandwidth": "GB/s (device-to-device copy, 1e9 bytes/sec)",
+      "gpu_compute": "TFLOP/s (single-precision SGEMM, FP32-exact or TF32)",
+      "computational_intensity": "FLOP/byte (arithmetic intensity, roofline model)"
+    },
+    "statistical_notes": {
+      "confidence_intervals": "95% confidence intervals based on normal distribution",
+      "best_values": "Maximum observed performance across all runs",
+      "aggregation_method": "Sample statistics across independent benchmark runs",
+      "stream_methodology": "STREAM Triad uses 32-byte accounting (read b, read c, write-allocate read a, write a) to reflect actual bus traffic on CPUs without non-temporal stores"
+    }
+  },
+  "device_info": {
+    "timestamp_utc": "2025-09-21T09:20:32.657342Z",
+    "python": "3.8.10 (default, Nov 22 2023, 10:22:35) \n[GCC 9.4.0]",
+    "platform": "Linux-6.8.0-40-generic-x86_64-with-glibc2.29",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "uname": "Linux e47ca95881ab 6.8.0-40-generic #40~22.04.3-Ubuntu SMP PREEMPT_DYNAMIC Tue Jul 30 17:30:19 UTC 2 x86_64 x86_64 x86_64 GNU/Linux\n",
+    "os_release": "NAME=\"Ubuntu\"\nVERSION=\"20.04.6 LTS (Focal Fossa)\"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME=\"Ubuntu 20.04.6 LTS\"\nVERSION_ID=\"20.04\"\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nVERSION_CODENAME=focal\nUBUNTU_CODENAME=focal\n",
+    "lscpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nByte Order:                           Little Endian\nAddress sizes:                        52 bits physical, 57 bits virtual\nCPU(s):                               48\nOn-line CPU(s) list:                  0-47\nThread(s) per core:                   2\nCore(s) per socket:                   24\nSocket(s):                            1\nNUMA node(s):                         1\nVendor ID:                            AuthenticAMD\nCPU family:                           25\nModel:                                24\nModel name:                           AMD Ryzen Threadripper 7960X 24-Cores\nStepping:                             1\nCPU MHz:                              4792.338\nCPU max MHz:                          7786.0000\nCPU min MHz:                          545.0000\nBogoMIPS:                             8387.76\nVirtualization:                       AMD-V\nL1d cache:                            768 KiB\nL1i cache:                            768 KiB\nL2 cache:                             24 MiB\nL3 cache:                             128 MiB\nNUMA node0 CPU(s):                    0-47\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Not affected\nVulnerability Spec rstack overflow:   Mitigation; Safe RET\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; STIBP always-on; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local user_shstk avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd amd_ppin cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid overflow_recov succor smca fsrm flush_l1d debug_swap\n",
+    "smt_control": "on",
+    "cpu_governors": {
+      "/sys/devices/system/cpu/cpufreq/policy11": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy8": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy38": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy6": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy28": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy18": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy46": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy36": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy4": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy26": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy16": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy44": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy34": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy2": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy24": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy14": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy42": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy32": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy0": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy22": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy12": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy40": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy9": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy30": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy20": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy10": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy39": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy7": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy29": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy19": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy47": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy37": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy5": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy27": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy17": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy45": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy35": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy3": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy25": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy15": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy43": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy33": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy1": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy23": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy13": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy41": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy31": "powersave",
+      "/sys/devices/system/cpu/cpufreq/policy21": "powersave"
+    },
+    "meminfo": "MemTotal:       395521048 kB\nMemFree:        124670944 kB\nMemAvailable:   373982328 kB\nBuffers:         1083696 kB\nCached:         214027448 kB\nSwapCached:            0 kB\nActive:         16024832 kB\nInactive:       208432720 kB\nActive(anon):    8174204 kB\nInactive(anon):  1200732 kB\nActive(file):    7850628 kB\nInactive(file): 207231988 kB\nUnevictable:       30712 kB\nMlocked:           27640 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:           5134112 kB\nWriteback:             0 kB\nAnonPages:       9378412 kB\nMapped:           857456 kB\nShmem:             19460 kB\nKReclaimable:   37599280 kB\nSlab:           42678796 kB\nSReclaimable:   37599280 kB\nSUnreclaim:      5079516 kB\nKernelStack:       39088 kB\nPageTables:       121268 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    197760524 kB\nCommitted_AS:   52288672 kB\nVmallocTotal:   13743895347199 kB\nVmallocUsed:      396520 kB\nVmallocChunk:          0 kB\nPercpu:           868224 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:      2048 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:   2734080 kB\nFilePmdMapped:         0 kB\nUnaccepted:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      615244 kB\nDirectMap2M:    52348928 kB\nDirectMap1G:    349175808 kB\n",
+    "lspci_vga": "45:00.0 Non-Volatile memory controller: Intel Corporation NVMe Datacenter SSD [3DNAND, Beta Rock Controller]\n83:00.0 VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 52)\n",
+    "nvidia_gpus": "not_available: No module named 'nvidia_ml_py3'",
+    "versions_perf_env": {
+      "numpy": "1.24.4",
+      "torch": "2.4.1+cu121",
+      "nvidia_ml_py3": "not_installed"
+    },
+    "cuda_runtime_info": {
+      "cuda_version": "12.1",
+      "cudnn_version": 90100,
+      "cuda_available": false,
+      "cublas_version": "library_not_found"
+    }
+  },
+  "cpu_results": {
+    "runs": [
+      {
+        "memory_bandwidth_gbs": 48.89,
+        "compute_tflops": 0.13857320850214205,
+        "intensity_flop_per_byte": 2.83,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "threading_config": {
+            "omp_threads": "1",
+            "openblas_threads": "1",
+            "mkl_threads": "1",
+            "cpu_count": 48,
+            "blas_info": "openblas64__info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nblas_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nopenblas64__lapack_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nlapack_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nSupported SIMD extensions in this NumPy install:\n    baseline = SSE,SSE2,SSE3\n    found = SSSE3,SSE41,POPCNT,SSE42,AVX,F16C,FMA3,AVX2,AVX512F,AVX512CD,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL\n    not found = AVX512_KNL,AVX512_KNM\n"
+          },
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 7.973793726414442,
+              "tflops": 0.1378906534958003
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 7.99242988973856,
+              "tflops": 0.13756913015748282
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 7.966184519231319,
+              "tflops": 0.13802236505087823
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 7.991416834294796,
+              "tflops": 0.13758656951261716
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 7.955464955419302,
+              "tflops": 0.13820834281056157
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 7.954524677246809,
+              "tflops": 0.13822467996372587
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 7.95485557243228,
+              "tflops": 0.13821893028283014
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 7.934518076479435,
+              "tflops": 0.13857320850214205
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 7.961332079023123,
+              "tflops": 0.13810648982637502
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 7.958997558802366,
+              "tflops": 0.13814699899737745
+            }
+          ],
+          "timings_raw": [
+            7.973793726414442,
+            7.99242988973856,
+            7.966184519231319,
+            7.991416834294796,
+            7.955464955419302,
+            7.954524677246809,
+            7.95485557243228,
+            7.934518076479435,
+            7.961332079023123,
+            7.958997558802366
+          ],
+          "best_tflops": 0.13857320850214205,
+          "mean_tflops": 0.13805473685997907,
+          "std_tflops": 0.00030594194456503866,
+          "ci95_single_run": 0.0001896247818148729,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 48.89,
+        "compute_tflops": 0.1389712652221149,
+        "intensity_flop_per_byte": 2.84,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "threading_config": {
+            "omp_threads": "1",
+            "openblas_threads": "1",
+            "mkl_threads": "1",
+            "cpu_count": 48,
+            "blas_info": "openblas64__info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nblas_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nopenblas64__lapack_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nlapack_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nSupported SIMD extensions in this NumPy install:\n    baseline = SSE,SSE2,SSE3\n    found = SSSE3,SSE41,POPCNT,SSE42,AVX,F16C,FMA3,AVX2,AVX512F,AVX512CD,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL\n    not found = AVX512_KNL,AVX512_KNM\n"
+          },
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 7.93297553434968,
+              "tflops": 0.13860015362648342
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 7.926050569862127,
+              "tflops": 0.13872124812788394
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 7.923940237611532,
+              "tflops": 0.13875819286938737
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 7.929880920797586,
+              "tflops": 0.138654241943574
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 7.929005488753319,
+              "tflops": 0.13866955059314465
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 7.921353071928024,
+              "tflops": 0.1388035122020364
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 7.930061496794224,
+              "tflops": 0.13865108463792927
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 7.926330406218767,
+              "tflops": 0.13871635062214355
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 7.927405316382647,
+              "tflops": 0.13869754148987024
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 7.911791160702705,
+              "tflops": 0.1389712652221149
+            }
+          ],
+          "timings_raw": [
+            7.93297553434968,
+            7.926050569862127,
+            7.923940237611532,
+            7.929880920797586,
+            7.929005488753319,
+            7.921353071928024,
+            7.930061496794224,
+            7.926330406218767,
+            7.927405316382647,
+            7.911791160702705
+          ],
+          "best_tflops": 0.1389712652221149,
+          "mean_tflops": 0.13872431413345676,
+          "std_tflops": 0.00010428704138164114,
+          "ci95_single_run": 6.463777791641894e-05,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 48.92,
+        "compute_tflops": 0.1369831545810311,
+        "intensity_flop_per_byte": 2.8,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "threading_config": {
+            "omp_threads": "1",
+            "openblas_threads": "1",
+            "mkl_threads": "1",
+            "cpu_count": 48,
+            "blas_info": "openblas64__info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nblas_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nopenblas64__lapack_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nlapack_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nSupported SIMD extensions in this NumPy install:\n    baseline = SSE,SSE2,SSE3\n    found = SSSE3,SSE41,POPCNT,SSE42,AVX,F16C,FMA3,AVX2,AVX512F,AVX512CD,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL\n    not found = AVX512_KNL,AVX512_KNM\n"
+          },
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 8.058264032006264,
+              "tflops": 0.13644522237158005
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 8.056781630963087,
+              "tflops": 0.13647032750030821
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 8.060692686587572,
+              "tflops": 0.1364041119698696
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 8.049692314118147,
+              "tflops": 0.13659051611793846
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 8.057945668697357,
+              "tflops": 0.1364506132186104
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 8.065283730626106,
+              "tflops": 0.1363264659370694
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 8.026619266718626,
+              "tflops": 0.1369831545810311
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 8.062408808618784,
+              "tflops": 0.13637507770638133
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 8.051897022873163,
+              "tflops": 0.13655311594927236
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 8.067191626876593,
+              "tflops": 0.13629422463610208
+            }
+          ],
+          "timings_raw": [
+            8.058264032006264,
+            8.056781630963087,
+            8.060692686587572,
+            8.049692314118147,
+            8.057945668697357,
+            8.065283730626106,
+            8.026619266718626,
+            8.062408808618784,
+            8.051897022873163,
+            8.067191626876593
+          ],
+          "best_tflops": 0.1369831545810311,
+          "mean_tflops": 0.1364892829988163,
+          "std_tflops": 0.0001963223100585256,
+          "ci95_single_run": 0.00012168182843698217,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 48.9,
+        "compute_tflops": 0.13691447345230082,
+        "intensity_flop_per_byte": 2.8,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "threading_config": {
+            "omp_threads": "1",
+            "openblas_threads": "1",
+            "mkl_threads": "1",
+            "cpu_count": 48,
+            "blas_info": "openblas64__info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nblas_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nopenblas64__lapack_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nlapack_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nSupported SIMD extensions in this NumPy install:\n    baseline = SSE,SSE2,SSE3\n    found = SSSE3,SSE41,POPCNT,SSE42,AVX,F16C,FMA3,AVX2,AVX512F,AVX512CD,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL\n    not found = AVX512_KNL,AVX512_KNM\n"
+          },
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 8.059581626206636,
+              "tflops": 0.13642291607306442
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 8.051291324198246,
+              "tflops": 0.13656338884067026
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 8.042754869908094,
+              "tflops": 0.13670833508675173
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 8.054390486329794,
+              "tflops": 0.13651084208570857
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 8.030645702034235,
+              "tflops": 0.13691447345230082
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 8.03764634206891,
+              "tflops": 0.1367952234998415
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 8.049480397254229,
+              "tflops": 0.13659411210580202
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 8.05746665969491,
+              "tflops": 0.13645872508241097
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 8.05685966834426,
+              "tflops": 0.13646900567177897
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 8.057554360479116,
+              "tflops": 0.13645723982563626
+            }
+          ],
+          "timings_raw": [
+            8.059581626206636,
+            8.051291324198246,
+            8.042754869908094,
+            8.054390486329794,
+            8.030645702034235,
+            8.03764634206891,
+            8.049480397254229,
+            8.05746665969491,
+            8.05685966834426,
+            8.057554360479116
+          ],
+          "best_tflops": 0.13691447345230082,
+          "mean_tflops": 0.13658942617239656,
+          "std_tflops": 0.00016526264574491894,
+          "ci95_single_run": 0.00010243084904909769,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        }
+      },
+      {
+        "memory_bandwidth_gbs": 48.79,
+        "compute_tflops": 0.13678071298203331,
+        "intensity_flop_per_byte": 2.8,
+        "sgemm_details": {
+          "matrix_size": 8192,
+          "dtype": "float32",
+          "precision_label": "FP32-exact",
+          "threading_config": {
+            "omp_threads": "1",
+            "openblas_threads": "1",
+            "mkl_threads": "1",
+            "cpu_count": 48,
+            "blas_info": "openblas64__info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nblas_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nopenblas64__lapack_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nlapack_ilp64_opt_info:\n    libraries = ['openblas64_', 'openblas64_']\n    library_dirs = ['/usr/local/lib']\n    language = c\n    define_macros = [('HAVE_CBLAS', None), ('BLAS_SYMBOL_SUFFIX', '64_'), ('HAVE_BLAS_ILP64', None), ('HAVE_LAPACKE', None)]\n    runtime_library_dirs = ['/usr/local/lib']\nSupported SIMD extensions in this NumPy install:\n    baseline = SSE,SSE2,SSE3\n    found = SSSE3,SSE41,POPCNT,SSE42,AVX,F16C,FMA3,AVX2,AVX512F,AVX512CD,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL\n    not found = AVX512_KNL,AVX512_KNM\n"
+          },
+          "warmup_iterations": 3,
+          "benchmark_iterations": 10,
+          "results": [
+            {
+              "iteration": 1,
+              "time_seconds": 8.045073077082634,
+              "tflops": 0.13666894225089044
+            },
+            {
+              "iteration": 2,
+              "time_seconds": 8.043512005358934,
+              "tflops": 0.1366954667368505
+            },
+            {
+              "iteration": 3,
+              "time_seconds": 8.048764023929834,
+              "tflops": 0.13660626954735344
+            },
+            {
+              "iteration": 4,
+              "time_seconds": 8.047749646008015,
+              "tflops": 0.13662348807301664
+            },
+            {
+              "iteration": 5,
+              "time_seconds": 8.050196126103401,
+              "tflops": 0.13658196776234385
+            },
+            {
+              "iteration": 6,
+              "time_seconds": 8.048595279455185,
+              "tflops": 0.13660913359410795
+            },
+            {
+              "iteration": 7,
+              "time_seconds": 8.054512277245522,
+              "tflops": 0.13650877792839003
+            },
+            {
+              "iteration": 8,
+              "time_seconds": 8.041177030652761,
+              "tflops": 0.13673515998773436
+            },
+            {
+              "iteration": 9,
+              "time_seconds": 8.055473741143942,
+              "tflops": 0.13649248487524218
+            },
+            {
+              "iteration": 10,
+              "time_seconds": 8.038499023765326,
+              "tflops": 0.13678071298203331
+            }
+          ],
+          "timings_raw": [
+            8.045073077082634,
+            8.043512005358934,
+            8.048764023929834,
+            8.047749646008015,
+            8.050196126103401,
+            8.048595279455185,
+            8.054512277245522,
+            8.041177030652761,
+            8.055473741143942,
+            8.038499023765326
+          ],
+          "best_tflops": 0.13678071298203331,
+          "mean_tflops": 0.13663024037379629,
+          "std_tflops": 9.221236553849217e-05,
+          "ci95_single_run": 5.7153816292596234e-05,
+          "units": {
+            "compute": "TFLOP/s",
+            "time": "seconds"
+          }
+        }
+      }
+    ],
+    "aggregated": {
+      "memory_bandwidth_gbs": {
+        "values": [
+          48.89,
+          48.89,
+          48.92,
+          48.9,
+          48.79
+        ],
+        "mean": 48.878,
+        "median": 48.89,
+        "stdev": 0.051,
+        "ci95": 0.044,
+        "min": 48.79,
+        "max": 48.92,
+        "best": 48.92,
+        "coefficient_of_variation": 0.1,
+        "units": "GB/s"
+      },
+      "compute_gflops": {
+        "values": [
+          138.57320850214205,
+          138.97126522211488,
+          136.9831545810311,
+          136.91447345230083,
+          136.78071298203332
+        ],
+        "mean": 137.645,
+        "median": 136.983,
+        "stdev": 1.042,
+        "ci95": 0.913,
+        "min": 136.781,
+        "max": 138.971,
+        "best": 138.971,
+        "coefficient_of_variation": 0.76,
+        "units": "GFLOP/s"
+      },
+      "intensity_flop_per_byte": {
+        "values": [
+          2.83,
+          2.84,
+          2.8,
+          2.8,
+          2.8
+        ],
+        "mean": 2.814,
+        "median": 2.8,
+        "stdev": 0.019,
+        "ci95": 0.017,
+        "min": 2.8,
+        "max": 2.84,
+        "best": 2.84,
+        "coefficient_of_variation": 0.69,
+        "units": "FLOP/byte"
+      }
+    }
+  },
+  "gpu_results": {
+    "runs": [],
+    "aggregated": {}
+  }
+}

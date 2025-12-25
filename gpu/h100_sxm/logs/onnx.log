@@ -1,0 +1,8 @@
+[System] ORT providers available: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+[System] Using backend: CUDA on NVIDIA NVIDIA H100 80GB HBM3
+[Batch] Enforcing batch size: 1
+[levit_128s.onnx] symbolic shape inference ✓
+[levit_128s.onnx] onnxsim simplified ✓
+[mobilevit_xxs.onnx] symbolic shape inference ✓
+[mobilevit_xxs.onnx] onnxsim simplified ✓
+Saved frm_onnx_results.ods

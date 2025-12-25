@@ -1,0 +1,8 @@
+{
+  "efficientnet_b0_torchvision": "EN",
+  "inception_v3_google": "IN",
+  "mnasnet1_0_top1_73_512": "MN",
+  "edge_convnexttiny": "CN",
+  "edge_deit": "DE",
+  "resnet50v1_mlpref": "R50"
+}

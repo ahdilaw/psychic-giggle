@@ -1,0 +1,93 @@
+{
+  "CN": {
+    "model": "convnext_tiny",
+    "params_m": 28.589,
+    "flops_g": 4.46,
+    "param_mem_mib": 109.06,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.convnext_tiny.html"
+  },
+  "DE": {
+    "model": "deit_tiny_distilled_patch16_224",
+    "params_m": 5.90,
+    "flops_g": 2.60,
+    "param_mem_mib": 22.89,
+    "citation": "https://huggingface.co/timm/deit_tiny_distilled_patch16_224.fb_in1k?utm_source=chatgpt.com"
+  },
+  "DN": {
+    "model": "densenet121",
+    "params_m": 7.979,
+    "flops_g": 2.83,
+    "param_mem_mib": 30.44,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.densenet121.html"
+  },
+  "EN": {
+    "model": "efficientnet_b0",
+    "params_m": 5.289,
+    "flops_g": 0.39,
+    "param_mem_mib": 20.17,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_b0.html"
+  },
+  "IN": {
+    "model": "inception_v3",
+    "params_m": 27.161,
+    "flops_g": 5.71,
+    "param_mem_mib": 103.61,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.inception_v3.html"
+  },
+  "LE": {
+    "model": "levit_128s",
+    "params_m": 7.8,
+    "flops_g": 0.305,
+    "param_mem_mib": 29.75,
+    "citation": "https://arxiv.org/abs/2104.01136"
+  },
+  "MN": {
+    "model": "mnasnet1_0",
+    "params_m": 4.383,
+    "flops_g": 0.31,
+    "param_mem_mib": 16.72,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.mnasnet1_0.html"
+  },
+  "MV2": {
+    "model": "mobilenet_v2",
+    "params_m": 3.505,
+    "flops_g": 0.31,
+    "param_mem_mib": 13.37,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.mobilenet_v2.html"
+  },
+  "MV3": {
+    "model": "mobilenet_v3_small",
+    "params_m": 2.543,
+    "flops_g": 0.06,
+    "param_mem_mib": 9.70,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.mobilenet_v3_small.html"
+  },
+  "MX": {
+    "model": "mobilevit_xxs",
+    "params_m": 1.3,
+    "flops_g": 0.7,
+    "param_mem_mib": 4.96,
+    "citation": "https://arxiv.org/pdf/2110.02178"
+  },
+  "R18": {
+    "model": "resnet18",
+    "params_m": 11.689,
+    "flops_g": 1.81,
+    "param_mem_mib": 44.59,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.resnet18.html"
+  },
+  "R50": {
+    "model": "resnet50_v1_mlperf",
+    "params_m": 25.557,
+    "flops_g": 4.09,
+    "param_mem_mib": 97.49,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.resnet50.html"
+  },
+  "SN": {
+    "model": "squeezenet1_1",
+    "params_m": 1.235,
+    "flops_g": 0.35,
+    "param_mem_mib": 4.71,
+    "citation": "https://pytorch.org/vision/main/models/generated/torchvision.models.squeezenet1_1.html"
+  }
+}
